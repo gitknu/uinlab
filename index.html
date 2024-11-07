@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Rectangles Mosaic</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            background: linear-gradient(135deg, #000428, #004e92);
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding-top: 60px; /* Add space for the header */
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to body */
+        }
+
+        /* Sticky header styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            color: black;
+            z-index: 9999;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to header */
+        }
+
+        header a {
+            color: black;
+            text-decoration: none;
+            margin: 0 20px;
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to links */
+        }
+
+        /* When in portrait (vertical) mode, show icons */
+        @media (orientation: portrait) {
+            header a {
+                width: 25px;
+                height: 25px;
+                text-align: center;
+                padding: 0;
+                font-size: 0;
+            }
+
+            header a::before {
+                content: "";
+                display: block;
+                width: 25px;
+                height: 25px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+
+            /* Replace the text links with icons */
+            header a:nth-child(1)::before {
+                background-image: url('https://icons.iconarchive.com/icons/ionic/ionicons/512/home-icon.png');
+            }
+
+            header a:nth-child(2)::before {
+                background-image: url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png');
+            }
+
+            header a:nth-child(3)::before {
+                background-image: url('https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/512/save-icon.png');
+            }
+
+            header a:nth-child(4)::before {
+                background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Book-Reference-icon.png');
+            }
+
+            header a:nth-child(5)::before {
+                background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png');
+            }
+        }
+
+        /* Grid layout for rectangles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2vw;
+            max-height: 80vh;
+            width: 100%;
+            padding: 0 2vw; /* Reduce horizontal padding */
+            margin-top: 80px; /* Adjust the margin to ensure the grid is below the fixed header */
+            box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to grid */
+        }
+
+        .rectangle {
+            background-color: rgba(184, 0, 0, .6);
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1/2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden;
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to rectangles */
+        }
+
+        .rectangle img {
+            width: 80%;
+            height: auto;
+            object-fit: cover;
+            margin: 10% auto 0;
+        }
+
+        .rectangle .text {
+            width: 80%;
+            margin: 5% auto;
+            color: white; /* Set the font color to white */
+            font-size: .8rem;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to text */
+        }
+
+        /* Center-align the header and link style */
+        .rectangle .text b {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .rectangle .text a {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Justify the <p> text inside the rectangle */
+        .rectangle .text p {
+            width: 100%; /* Ensure <p> takes full width */
+            text-align: justify; /* Justify the text */
+            margin: 10px 0; /* Add margin for better spacing */
+        }
+    </style>
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header>
+        <a href="#">Головна</a>
+        <a href="#">Новини</a>
+        <a href="#">Файли</a>
+        <a href="#">Деталі</a>
+        <a href="#">Інше</a>
+    </header>
+
+    <!-- Grid Container -->
+    <div class="grid" id="grid"></div>
+
+    <script>
+        const images = [
+            "https://via.placeholder.com/150", "https://via.placeholder.com/150", "https://via.placeholder.com/150",
+            "https://via.placeholder.com/150", "https://via.placeholder.com/150", "https://via.placeholder.com/150",
+            "https://via.placeholder.com/150", "https://via.placeholder.com/150", "https://via.placeholder.com/150",
+            "https://via.placeholder.com/150", "https://via.placeholder.com/150", "https://via.placeholder.com/150",
+            "https://via.placeholder.com/150", "https://via.placeholder.com/150"
+        ];
+
+        const texts = [
+            `<b>Дія.Бізнес / Diia.Business<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Robot&Electronic Laboratory (RELAB)</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Young Innovation Hackathon</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`,
+            `<b>Бізнес-школа / Business School</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#">Read more</a>`
+        ];
+
+        const grid = document.getElementById("grid");
+        for (let i = 0; i < images.length; i++) {
+            const rectangle = document.createElement("div");
+            rectangle.classList.add("rectangle");
+            const img = document.createElement("img");
+            img.src = images[i];
+            img.alt = `Image ${i + 1}`;
+            const textDiv = document.createElement("div");
+            textDiv.classList.add("text");
+            textDiv.innerHTML = texts[i]; // Insert HTML content
+            rectangle.appendChild(img);
+            rectangle.appendChild(textDiv);
+            grid.appendChild(rectangle);
+        }
+    </script>
+</body>
+</html>
