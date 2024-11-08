@@ -95,6 +95,7 @@
             font-family: "Montserrat", sans-serif; /* Apply Montserrat font to grid */
         }
 
+        /* Glow effect for rectangles */
         .rectangle {
             background-color: rgba(184, 0, 0, .6);
             width: 100%;
@@ -104,7 +105,55 @@
             flex-direction: column;
             justify-content: flex-start;
             overflow: hidden;
-            font-family: "Montserrat", sans-serif; /* Apply Montserrat font to rectangles */
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+        .rectangle .animated-border-box, .rectangle .animated-border-box-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .rectangle .animated-border-box-glow {
+            filter: blur(20px);
+            animation: rotate 4s linear infinite;
+        }
+
+        .rectangle .animated-border-box:before, .rectangle .animated-border-box-glow:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 99999px;
+            height: 99999px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            background-image: conic-gradient(rgba(0, 0, 0, 0), white, rgba(0, 0, 0, 0) 25%);
+        }
+
+        .rectangle .animated-border-box:after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            background: #292a2e;
+            border-radius: 7px;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: translate(-50%, -50%) rotate(1turn);
+            }
         }
 
         .image-container {
@@ -210,7 +259,16 @@
         for (let i = 0; i < images.length; i++) {
             const rectangle = document.createElement("div");
             rectangle.classList.add("rectangle");
-            
+
+            // Add glowing border effect
+            const glowBox = document.createElement("div");
+            glowBox.classList.add("animated-border-box-glow");
+            rectangle.appendChild(glowBox);
+
+            const borderBox = document.createElement("div");
+            borderBox.classList.add("animated-border-box");
+            rectangle.appendChild(borderBox);
+
             // Create a container for the image to ensure it's a square
             const imageContainer = document.createElement("div");
             imageContainer.classList.add("image-container");
@@ -229,7 +287,7 @@
             // Append the image container and text to the rectangle
             rectangle.appendChild(imageContainer);
             rectangle.appendChild(textDiv);
-            
+
             grid.appendChild(rectangle);
         }
     </script>
