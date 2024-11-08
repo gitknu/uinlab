@@ -1,5 +1,5 @@
 <style>
-.animated-border-box, .animated-border-box-glow {
+.rectangle-info, .rectangle-glow {
   max-height: 200px;
   max-width: 250px;
   height: 100%;
@@ -9,7 +9,7 @@
   z-index: 0;
   border-radius: 10px;
 }
-.animated-border-box:before, .animated-border-box-glow:before {
+.rectangle-info:before, .rectangle-glow:before {
   content: '';
   z-index: -2;
   top: 50%;
@@ -20,9 +20,9 @@
   height: 99999px;
   background-image: conic-gradient(rgba(0,0,0,0), #1976ed, rgba(0,0,0,0) 25%);
   animation: rotate 4s linear infinite;
-  opacity: 0; /* Hide by default */
+  opacity: 0;
 }
-.animated-border-box:after {
+.rectangle-info:after {
   content: '';
   position: absolute;
   z-index: -1;
@@ -38,11 +38,11 @@
     transform: translate(-50%, -50%) rotate(1turn);
   }
 }
-.center-box:hover .animated-border-box-glow:before {
+.rectangle:hover .rectangle-glow:before {
   opacity: 1; /* Make glow visible on hover */
 }
 </style>
-<div class="center-box">
-  <div class="animated-border-box-glow"></div>
-  <div class="animated-border-box"></div>
+<div class="rectangle">
+  <div class="rectangle-glow"></div>
+  <div class="rectangle-info"></div>
 </div>
