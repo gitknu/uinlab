@@ -1,11 +1,11 @@
 <style>
-.animated-border-box, .animated-border-box-glow{
+.animated-border-box, .animated-border-box-glow {
   max-height: 200px;
   max-width: 250px;
   height: 100%;
   width: 100%;
   position: absolute;
-  overflow: hidden; 
+  overflow: hidden;
   z-index: 0;
   border-radius: 10px;
 }
@@ -20,6 +20,7 @@
   height: 99999px;
   background-image: conic-gradient(rgba(0,0,0,0), #1976ed, rgba(0,0,0,0) 25%);
   animation: rotate 4s linear infinite;
+  opacity: 0; /* Hide by default */
 }
 .animated-border-box:after {
   content: '';
@@ -37,9 +38,11 @@
     transform: translate(-50%, -50%) rotate(1turn);
   }
 }
+.center-box:hover .animated-border-box-glow:before {
+  opacity: 1; /* Make glow visible on hover */
+}
 </style>
 <div class="center-box">
   <div class="animated-border-box-glow"></div>
-  <div class="animated-border-box">
-  </div>
+  <div class="animated-border-box"></div>
 </div>
