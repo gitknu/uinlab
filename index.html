@@ -49,14 +49,13 @@
             font-weight: bold; /* Make the font bold on hover */
             font-size: 1.4rem;  /* Enlarge the font size */
         }
-        /* Media query for mobile */
         @media (orientation: portrait) {
             header a {
                 width: 25px;
                 height: 25px;
                 text-align: center;
                 padding: 0;
-                font-size: 0;
+                font-size: 0; /* Set font size to 0px in mobile */
             }
             header a::before {
                 content: "";
@@ -85,13 +84,7 @@
             header a:nth-child(5)::before {
                 background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png');
             }
-
-            /* Hide text content in mobile view */
-            .rectangle .text {
-                display: none;
-            }
         }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
