@@ -49,6 +49,15 @@
             font-weight: bold; /* Make the font bold on hover */
             font-size: 1.4rem;  /* Enlarge the font size */
         }
+        
+        /* Disable hover effect on mobile */
+        @media (max-width: 768px) {
+            header a:hover {
+                font-weight: normal;
+                font-size: 1.2rem;  /* Keep the normal font size on mobile */
+            }
+        }
+
         @media (orientation: portrait) {
             header a {
                 width: 25px;
@@ -230,9 +239,7 @@
             "https://lh3.googleusercontent.com/d/1Gg4n_vL8JfEPykVlRRG9NYV8WbC6-X1G",
             "https://lh3.googleusercontent.com/d/16pfNqHPmYLuz-zVTYdmpfG8O-rnNFnnH", 
             "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
-            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg",
-            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg",
-            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg",
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
             "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC"
         ];
         const texts = [
