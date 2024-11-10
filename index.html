@@ -106,6 +106,7 @@
             border-radius: 10px;
             overflow: hidden;
             transition: height 0.3s ease-in-out; 
+            padding-bottom: 30%;
         }
         .rectangle-glow {
             position: absolute;
@@ -205,17 +206,17 @@
     display: flex;
     justify-content: space-around; 
     align-items: center;
-    position: relative;  
-    bottom: 16px;  
+    position: absolute;  
+    bottom: 16px;
     left: 0;
     width: 100%;
     z-index: 1;
 }
 
 .rectangle .icons a {
-    width: 20%; /* Each icon takes 25% of the width */
+    width: 20%; 
     height: 0;
-    padding-top: 20%; /* Maintain 1:1 aspect ratio (height = width) */
+    padding-top: 20%; 
     position: relative;
 }
 
@@ -257,20 +258,20 @@
             "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC"
         ];
         const texts = [
-                "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Коворкінг і бібліотека від Центру Дія.Бізнес. Долучайтеся до подій у нашому хабі на економічному! </p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)<br><br></a></i>",
-            "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Завжди раді новим спікерам! </p><i><a href=\"https://maps.app.goo.gl/fpYteGmxhHfNraZx8\">просп. Глушкова, 4Г<br>(каб. 999)<br><br></a></i>",
-            "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)<br><br></a></i>",
-            "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки для молодих новаторів у стінах #ТвійФРЕКС!</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 20)<br><br></a></i>",
-            "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 227)<br><br></a></i>",
-            "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">Васильківська, 90А<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/j2tLYgF25Q2KZSx69\">Володимирська, 60<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/rTunRwwEwteYbuHX7\">Скоропадського, 14А<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>",
-            "<b>Бізнес-школа / Business School<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)<br><br></a></i>"
+                "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Коворкінг і бібліотека від Центру Дія.Бізнес. Долучайтеся до подій у нашому хабі на економічному! </p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",
+            "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Завжди раді новим спікерам!</p><i><a href=\"https://maps.app.goo.gl/fpYteGmxhHfNraZx8\">просп. Глушкова, 4Г<br>(каб. 999)</a></i>",
+            "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)</a></i>",
+            "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки для молодих новаторів у стінах #ТвійФРЕКС!</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 20)</a></i>",
+            "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 227)</a></i>",
+            "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">Васильківська, 90А<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/j2tLYgF25Q2KZSx69\">Володимирська, 60<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/rTunRwwEwteYbuHX7\">Скоропадського, 14А<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Бізнес-школа / Business School<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>"
         ];
         const urls = [
             "http://diia-business-knu.com",
