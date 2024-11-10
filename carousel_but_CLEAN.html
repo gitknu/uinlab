@@ -1,0 +1,369 @@
+<html>
+<head>
+<style>
+ html, body {
+	overflow-x: hidden;
+}
+iframe {
+    height: 385px;
+    border-radius: 40px;
+}
+.container {
+  width: 320px;
+  margin: 100px auto 0 auto;
+  perspective: 1000px;
+}
+.carousel {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; 
+  transition: transform 2.1s ease;
+}
+.carousel__face { 
+  border-radius:20px;
+  width: 300px;
+  height: 225px;
+  top: 20px;
+  left: 10px;
+  right: 10px;
+  background-size: cover;
+  box-shadow:
+  inset 0 0 0 2000px rgba(0,0,0,0.2), 
+  0 0 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  opacity: 0;
+}
+#carousel__face_10, #carousel__face_2 {
+      opacity: 0.4;
+      }
+#carousel__face_1 {
+      opacity: 1;
+}
+span {
+  margin: 10px;
+  font-size: 9px;
+}
+#rotateButton {
+  display: inline-block;
+  height: 75px;
+  margin: 2px 75px;
+  padding: 4px 0 0 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  top: 500px;
+  transition: transform 0.1s, font-size 0.1s;
+}
+#rotateButton:active {
+transform: translateY(1px); 
+  font-size: 1px smaller;
+}
+.carousel__face {
+  background-color: green;
+}
+.carousel__face:nth-child(1) { transform: rotateY(0deg) translateZ(500px); }
+.carousel__face:nth-child(2) { transform: rotateY(36deg) translateZ(500px); }
+.carousel__face:nth-child(3) { transform: rotateY(72deg) translateZ(500px); }
+.carousel__face:nth-child(4) { transform: rotateY(108deg) translateZ(500px); }
+.carousel__face:nth-child(5) { transform: rotateY(144deg) translateZ(500px); }
+.carousel__face:nth-child(6) { transform: rotateY(180deg) translateZ(500px); }
+.carousel__face:nth-child(7) { transform: rotateY(216deg) translateZ(500px); }
+.carousel__face:nth-child(8) { transform: rotateY(252deg) translateZ(500px); }
+.carousel__face:nth-child(9) { transform: rotateY(288deg) translateZ(500px); }
+.carousel__face:nth-child(10) { transform: rotateY(324deg) translateZ(500px); }
+ .carousel, .carousel__face  {
+        position: absolute;
+  }
+  #rotateButton, .container {
+  position: relative;
+  }
+    .full_screen {
+        height: 100vh;
+        width: 100%;
+    }
+    ::-webkit-scrollbar-thumb {
+  background: rgba(25, 25, 255, 0.3);
+  border-radius: 20px;
+}
+::-webkit-scrollbar-track {
+  background: linear-gradient(white, #d1fac5);
+}
+::-webkit-scrollbar {
+  width: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="full_screen">
+            <div class="el_appear">
+    <div id="carousel_and_models">
+<div class="container">
+  <div class="carousel">
+    <div class="carousel__face" id="carousel__face_1"><span><h3>The largest collection of butterflies</h3><p>The pride of the Zoological Museum is the world-famous collection of daytime butterflies, which includes about half a million specimens. It is based on the collection of the famous Ukrainian zoologist Lev Sheliuzhko, which he and his father donated to the museum.</p><p>Birds make up another significant part of the exposition. From the world's smallest hummingbirds to the most widespread pigeons on the planet.</p></span></div>
+    <div class="carousel__face" id="carousel__face_2"><span><h3>Huge exposition of birds</h3><p>Birds. They spread plant seeds, helping forests regenerate. Many birds eat insects, which regulates their numbers. Birds of prey control populations of small animals. And the list goes on and on.</p><p>You can see almost all the birds of Ukraine and a significant number of world birds in this collection.</p>
+   </span></div>
+    <div class="carousel__face" id="carousel__face_3"><span><h3>Birds of the Red Book</h3><p>Animals on the verge of extinction deserve special attention. The evolutionary struggle, climate change, and the detrimental impact of human activity on nature can all be traced in the these halls.</p><p>The museum has examples of rare and sometimes extinct species. They are not only about birds.</p></span></div>
+    <div class="carousel__face" id="carousel__face_4"><span><h3>The diversity of the World Ocean</h3><p>Water covers more than 70% of the world's surface. At the same time, about 80% of all species on Earth live in the oceans. This includes species that have achieved biological immortality and those that have not changed for hundreds of millions of years.</p><p>The life story we know begins here.</p></span></div>
+    <div class="carousel__face" id="carousel__face_5"><span><h3>Fish</h3><p>Freshwater and marine. Predatory and peaceful. Pelagic and benthic. All these species complement the ecosystem of our planet and demonstrate how much diversity of life is hidden in even the smallest bodies of water.</p><p>The aquatic ecosystem is a complex and fragile mechanism, and each inhabitant of this aquatic world plays a unique role.</p></span></div>
+    <div class="carousel__face" id="carousel__face_6"><span><h3>The largest among contemporaries</h3><p>The skeleton of a huge whale, the fin whale, is a unique decoration of the museum. In addition to it, there are Indian elephant, polar bear, giant kangaroo and many others.</p><p>Look into the eyes of fearsome predators and lift your head to see giant herbivores.</p></span></div>
+    <div class="carousel__face" id="carousel__face_7"><span><h3>Impressive taxidermy work</h3><p>Each species represented is the result of the meticulous work of the taxidermist who created the stuffed animal. From enormous trophy heads to tiny butterfly chrysalises, all of these were made over half a century and more ago.</p><p>These creations have been carefully preserved by generations of museum staff until now.</p></span></div>
+    <div class="carousel__face" id="carousel__face_8"><span><h3>Mammal diversity</h3><p>Each mammal species has its own unique characteristics that allow it to survive in its environment. By studying the world of mammals, we understand better how the world around us works. We learn about the amazing adaptations that allow animals to survive in different conditions.</p><p>This is how we understand how important it is to preserve nature and protect all its inhabitants.</p></span></div>
+    <div class="carousel__face" id="carousel__face_9"><span><h3>Animals of different continents</h3><p>North and South America, Eurasia, Africa, Oceania and even Antarctica.</p><p>Animals from all over the world are gathered in several halls and presented to you in the palm of a hand.</p></span></div>
+    <div class="carousel__face" id="carousel__face_10"><span><h3>Come and visit us!</h3><p>These and many other exhibits are waiting for you!</p><p>Here, in the Red Building of TSNUK, one of the oldest museums in Ukraine, professionals with many years of experience will reveal the impressive biodiversity of our world.</p><p>To register for the tour, please call (044) 239-32-77.</p></span></div>
+  </div>
+    <div id="rotateButton" style="color: #a19295; text-align: center; font-family: Arial;"><h2>Next →</h2></div>
+    <span id="rotationCountDisplay" style="color: black">0</span>
+</div>
+</div>
+  <script>
+        function createModelViewer(idPrefix, start, end) {
+            const carousel = document.querySelector('.container');
+            for (let i = start; i <= end; i++) {
+                let div = document.createElement("div");
+                div.id = idPrefix + i;
+                carousel.appendChild(div);
+            }
+        }
+        createModelViewer("model-viewer-wrapper_", 1, 10);
+    </script>
+</div>
+<script>
+  const carousel = document.querySelector('.carousel');
+  const rotateButton = document.getElementById('rotateButton');
+  const rotationCountDisplay = document.getElementById('rotationCountDisplay');
+  const carouselFace1 = document.getElementById('carousel__face_1');
+  const carouselFace2 = document.getElementById('carousel__face_2');
+  const carouselFace3 = document.getElementById('carousel__face_3');
+  const carouselFace4 = document.getElementById('carousel__face_4');
+  const carouselFace5 = document.getElementById('carousel__face_5');
+  const carouselFace6 = document.getElementById('carousel__face_6');
+  const carouselFace7 = document.getElementById('carousel__face_7');
+  const carouselFace8 = document.getElementById('carousel__face_8');
+  const carouselFace9 = document.getElementById('carousel__face_9');
+  const carouselFace10 = document.getElementById('carousel__face_10');
+  let rotationAngle = 0;
+  let rotationCount = 1;
+  let rotationInterval;
+  function rotateCarousel() {
+      const handleOpacityTransition = (wrapperId) => {
+            const modelViewerWrapper = document.getElementById(wrapperId);
+            modelViewerWrapper.style.opacity = '0';
+            setTimeout(() => {
+                modelViewerWrapper.style.transition = 'opacity 1.55s ease';
+                modelViewerWrapper.style.opacity = '1';
+            }, 2000);
+        };
+    rotationAngle -= 36;
+    carousel.style.transform = `rotateY(${rotationAngle}deg)`;
+    if (rotationAngle % 360 === 0 && Number.isInteger(rotationAngle / 360)) {
+      rotationCount = 0; 
+    }
+    rotationCount++;
+    rotationCountDisplay.textContent = `${rotationCount}`;
+    if (rotationCount === 1) {
+      carouselFace1.style.transition = 'opacity 0.75s ease';
+      carouselFace1.style.opacity = 1;
+      carouselFace2.style.transition = 'opacity 0.75s ease';
+      carouselFace2.style.opacity = 0.4;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.transition = 'opacity 0.75s ease';
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.transition = 'opacity 0.75s ease';
+      carouselFace10.style.opacity = 0.4;
+    } else if (rotationCount === 2) {
+      carouselFace1.style.transition = 'opacity 0.75s ease';
+      carouselFace1.style.opacity = 0.4;
+      carouselFace2.style.transition = 'opacity 0.75s ease';
+      carouselFace2.style.opacity = 1;
+      carouselFace3.style.transition = 'opacity 0.75s ease';
+      carouselFace3.style.opacity = 0.4;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.transition = 'opacity 0.75s ease';
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 3) {
+      carouselFace1.style.transition = 'opacity 0.75s ease';
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.transition = 'opacity 0.75s ease';
+      carouselFace2.style.opacity = 0.4;
+      carouselFace3.style.transition = 'opacity 0.75s ease';
+      carouselFace3.style.opacity = 1;
+      carouselFace4.style.transition = 'opacity 0.75s ease';
+      carouselFace4.style.opacity = 0.4;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 4) {
+      carouselFace1.style.opacity = 0;
+      carouselFace1.style.transition = 'opacity 0.75s ease';
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.transition = 'opacity 0.75s ease';
+      carouselFace3.style.opacity = 0.4;
+      carouselFace4.style.transition = 'opacity 0.75s ease';
+      carouselFace4.style.opacity = 1;
+      carouselFace5.style.transition = 'opacity 0.75s ease';
+      carouselFace5.style.opacity = 0.4;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 5) {
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.transition = 'opacity 0.75s ease';
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.transition = 'opacity 0.75s ease';
+      carouselFace4.style.opacity = 0.4;
+      carouselFace5.style.transition = 'opacity 0.75s ease';
+      carouselFace5.style.opacity = 1;
+      carouselFace6.style.transition = 'opacity 0.75s ease';
+      carouselFace6.style.opacity = 0.4;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 6) {
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.transition = 'opacity 0.75s ease';
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.transition = 'opacity 0.75s ease';
+      carouselFace5.style.opacity = 0.4;
+      carouselFace6.style.transition = 'opacity 0.75s ease';
+      carouselFace6.style.opacity = 1;
+      carouselFace7.style.transition = 'opacity 0.75s ease';
+      carouselFace7.style.opacity = 0.4;
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 7) {
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.transition = 'opacity 0.75s ease';
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.transition = 'opacity 0.75s ease';
+      carouselFace6.style.opacity = 0.4;
+      carouselFace7.style.transition = 'opacity 0.75s ease';
+      carouselFace7.style.opacity = 1;
+      carouselFace8.style.transition = 'opacity 0.75s ease';
+      carouselFace8.style.opacity = 0.4;
+      carouselFace9.style.opacity = 0;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 8) {
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.transition = 'opacity 0.75s ease';
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.transition = 'opacity 0.75s ease';
+      carouselFace7.style.opacity = 0.4;
+      carouselFace8.style.transition = 'opacity 0.75s ease';
+      carouselFace8.style.opacity = 1;
+      carouselFace9.style.transition = 'opacity 0.75s ease';
+      carouselFace9.style.opacity = 0.4;
+      carouselFace10.style.opacity = 0;
+    } else if (rotationCount === 9) {
+      carouselFace1.style.opacity = 0;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.transition = 'opacity 0.75s ease';
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.transition = 'opacity 0.75s ease';
+      carouselFace8.style.opacity = 0.4;
+      carouselFace9.style.transition = 'opacity 0.75s ease';
+      carouselFace9.style.opacity = 1;
+      carouselFace10.style.transition = 'opacity 0.75s ease';
+      carouselFace10.style.opacity = 0.4;
+    } else if (rotationCount === 10) {
+      carouselFace1.style.transition = 'opacity 0.75s ease';
+      carouselFace1.style.opacity = 0.4;
+      carouselFace2.style.opacity = 0;
+      carouselFace3.style.opacity = 0;
+      carouselFace4.style.opacity = 0;
+      carouselFace5.style.opacity = 0;
+      carouselFace6.style.opacity = 0;
+      carouselFace7.style.opacity = 0;
+      carouselFace8.style.transition = 'opacity 0.75s ease';
+      carouselFace8.style.opacity = 0;
+      carouselFace9.style.transition = 'opacity 0.75s ease';
+      carouselFace9.style.opacity = 0.4;
+      carouselFace10.style.transition = 'opacity 0.75s ease';
+      carouselFace10.style.opacity = 1;
+    } 
+  }
+  function startRotation() {
+    rotationInterval = setInterval(rotateCarousel, 30000);
+  }
+  function stopRotation() {
+    clearInterval(rotationInterval);
+  }
+  function startOrResetRotationTimer() {
+    clearTimeout(startOrResetRotationTimer.timer);
+    startOrResetRotationTimer.timer = setTimeout(startRotation, 60000);
+  }
+let isButtonDisabled = false;
+rotateButton.addEventListener('click', () => {
+    if (!isButtonDisabled) {
+        stopRotation();
+        rotateCarousel();
+        startOrResetRotationTimer();
+        const handleOpacityTransition = (wrapperId) => {
+            const modelViewerWrapper = document.getElementById(wrapperId);
+            modelViewerWrapper.style.opacity = '0';
+            setTimeout(() => {
+                modelViewerWrapper.style.transition = 'opacity 1.55s ease';
+                modelViewerWrapper.style.opacity = '1';
+            }, 2000);
+        };
+        isButtonDisabled = true;
+        setTimeout(() => {
+            isButtonDisabled = false;
+        }, 3500);
+    }
+});
+carousel.addEventListener('click', startOrResetRotationTimer);
+let rotationAllowed = true;
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight' && rotationAllowed) {
+        stopRotation();
+        rotateCarousel();
+        startOrResetRotationTimer();
+        const handleOpacityTransition = (wrapperId) => {
+            const modelViewerWrapper = document.getElementById(wrapperId);
+            modelViewerWrapper.style.opacity = '0';
+            setTimeout(() => {
+                modelViewerWrapper.style.transition = 'opacity 1.55s ease';
+                modelViewerWrapper.style.opacity = '1';
+            }, 2000);
+        };
+        rotationAllowed = false;
+        setTimeout(() => {
+            rotationAllowed = true;
+        }, 3500); 
+    }
+});
+  startRotation();
+</script>
+</div>
+</body>
+</html>
