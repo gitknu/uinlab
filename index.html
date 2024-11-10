@@ -46,15 +46,15 @@
             transition: all 0.3s ease; 
         }
         header a:hover {
-            font-weight: bold; /* Make the font bold on hover */
-            font-size: 1.4rem;  /* Enlarge the font size */
+            font-weight: bold;
+            font-size: 1.4rem;  
         }
         @media (orientation: portrait) {
             header a {
-                font-size: 0; /* Reset font-size to 0px on mobile */
+                font-size: 0; 
             }
             header a:hover {
-            font-size: 0;  /* Enlarge the font size */
+            font-size: 0;  
         }
             header a::before {
                 content: "";
@@ -107,7 +107,6 @@
             overflow: hidden;
             transition: height 0.3s ease-in-out; 
         }
-        /* Glow effect applied to the entire rectangle */
         .rectangle-glow {
             position: absolute;
             top: 0;
@@ -229,20 +228,20 @@
             "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC"
         ];
         const texts = [
-                "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Коворкінг і бібліотека від Центру Дія.Бізнес. Долучайтеся до подій у нашому хабі на економічному!</p><i><a href=\"#\">Васильківська, 90А (корп. 2, ауд. 211/2)</a></i>",
-            "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Завжди раді новим спікерам! </p><i><a href=\"#\">просп. Глушкова, 4Г (каб. 999)</a></i>",
-            "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Васильківська, 90А (корп. 2, ауд. 210/2)</a></i>",
-            "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки для молодих новаторів у стінах #ТвійФРЕКС!</p><i><a href=\"#\">просп. Глушкова, 4Г (ауд. 20)</a></i>",
-            "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">просп. Глушкова, 4Г (ауд. 227)</a></i>",
-            "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Васильківська, 90А (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Володимирська, 60 (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">П. Скоропадського, 12 (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
-            "<b>Бізнес-школа / Business School</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>"
+                "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Коворкінг і бібліотека від Центру Дія.Бізнес. Долучайтеся до подій у нашому хабі на економічному! </p><i><a href=\"https://google.com\">Васильківська, 90А (корп. 2, ауд. 211/2)</a></i>",
+            "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Завжди раді новим спікерам! </p><i><a href=\"https://google.com\">просп. Глушкова, 4Г (каб. 999)</a></i>",
+            "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">Васильківська, 90А (корп. 2, ауд. 210/2)</a></i>",
+            "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки для молодих новаторів у стінах #ТвійФРЕКС!</p><i><a href=\"https://google.com\">просп. Глушкова, 4Г (ауд. 20)</a></i>",
+            "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">просп. Глушкова, 4Г (ауд. 227)</a></i>",
+            "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">Васильківська, 90А (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">Володимирська, 60 (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><<a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">П. Скоропадського, 12 (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Бізнес-школа / Business School</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://google.com\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>"
         ];
         const urls = [
             "http://diia-business-knu.com",
@@ -261,7 +260,6 @@
         ];
         const grid = document.getElementById("grid");
         const rectangles = [];
-        
         for (let i = 0; i < images.length; i++) {
             const rectangleWrapper = document.createElement("a");
             rectangleWrapper.href = urls[i];
@@ -289,8 +287,6 @@
             grid.appendChild(rectangleWrapper);
             rectangles.push(rectangle);
         }
-
-        // Adjust the height of all rectangles based on the tallest one
         window.onload = () => {
             let maxHeight = 0;
             rectangles.forEach(rectangle => {
@@ -300,7 +296,6 @@
                 rectangle.style.height = `${maxHeight}px`;
             });
         };
-
         window.onresize = () => {
             let maxHeight = 0;
             rectangles.forEach(rectangle => {
