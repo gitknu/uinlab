@@ -1,0 +1,295 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UInLab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        a {
+            text-decoration: none;   
+            color: inherit;          
+        }
+        a:visited, a:focus, a:hover, a:active {
+            color: inherit;         
+            text-decoration: none;  
+        }
+        body {
+            background: linear-gradient(135deg, #000428, #004e92);
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding-top: 60px; 
+            overflow-x: hidden; 
+            font-family: "Montserrat", sans-serif; 
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            color: black;
+            z-index: 9999;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif; 
+        }
+        header a {
+            color: black;
+            text-decoration: none;
+            margin: 0 20px;
+            font-family: "Montserrat", sans-serif; 
+            transition: all 0.3s ease; /* Smooth transition for all properties */
+        }
+        header a:hover {
+            font-weight: bold; /* Make the font bold on hover */
+            font-size: 1.4rem;  /* Enlarge the font size */
+        }
+        @media (orientation: portrait) {
+            header a {
+                font-size: 0; /* Reset font-size to 0px on mobile */
+            }
+            header a:hover {
+            font-size: 0;  /* Enlarge the font size */
+        }
+            header a::before {
+                content: "";
+                display: block;
+                width: 25px;
+                height: 25px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            header a:nth-child(1)::before {
+                background-image: url('https://icons.iconarchive.com/icons/ionic/ionicons/512/home-icon.png');
+            }
+
+            header a:nth-child(2)::before {
+                background-image: url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png');
+            }
+
+            header a:nth-child(3)::before {
+                background-image: url('https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/512/save-icon.png');
+            }
+
+            header a:nth-child(4)::before {
+                background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Book-Reference-icon.png');
+            }
+
+            header a:nth-child(5)::before {
+                background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png');
+            }
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2vw;
+            max-height: 80vh;
+            width: 100%;
+            padding: 0 2vw;
+            margin-top: 80px; 
+            box-sizing: border-box; 
+            font-family: "Montserrat", sans-serif; 
+        }
+        .rectangle {
+            background-color: #b80000;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1/2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        /* Glow effect applied to the entire rectangle */
+        .rectangle-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            z-index: 0;
+        }
+        .rectangle-info {
+            width: 100%;
+            height: 100%; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+            border-radius: 10px;
+        }
+        .rectangle-info:before, .rectangle-glow:before {
+            content: '';
+            z-index: -2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            position: absolute;
+            width: 99999px;
+            height: 99999px;
+            background-image: conic-gradient(rgba(0,0,0,0), #1976ed, rgba(0,0,0,0) 25%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+        }
+        .rectangle-info:after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            left: 5px;
+            top: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            background: #b80000;
+            border-radius: 7px;
+        }
+        @keyframes rotate {
+            100% {
+                transform: translate(-50%, -50%) rotate(1turn);
+            }
+        }
+        .rectangle:hover .rectangle-glow:before {
+            opacity: 1; /* Make glow visible on hover */
+        }
+
+        .image-container {
+            width: 80%;
+            height: 0;
+            padding-top: 80%; 
+            position: relative;
+            margin: 10% auto 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .image-container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+        }
+        .rectangle .text {
+            width: 80%;
+            margin: 5% auto;
+            color: white; 
+            font-size: clamp(16px, 2vw, 0.9rem);
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif; 
+            z-index: 1;
+        }
+        .rectangle .text b {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .rectangle .text a {
+            display: block;
+            text-align: right;
+            margin-top: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .rectangle .text p {
+            width: 100%; 
+            text-align: justify; 
+            margin: 10px 0; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#">Головна</a>
+        <a href="https://fb.com" target="_blank">Новини</a>
+        <a href="https://drive.google.com" target="_blank">Файли</a>
+        <a href="#">Деталі</a>
+        <a href="#">Інше</a>
+    </header>
+    <div class="grid" id="grid"></div>
+    <script>
+        const images = [
+            "https://lh3.googleusercontent.com/d/1HaIJ-qBk5NndQVwA48lZ4Z1ys3nGw4Qh", 
+            "https://lh3.googleusercontent.com/d/1lBW1KML8N4RJP776NEdcABso0fDgplWV", 
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg",
+            "https://lh3.googleusercontent.com/d/1vRPV0LR_eGMVKwb0T_4BHXPOziLgxNH9", 
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
+            "https://lh3.googleusercontent.com/d/13n1BnfjEmFkucMoAvHaTF6hn8tRg8QPv",
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
+            "https://lh3.googleusercontent.com/d/1Gg4n_vL8JfEPykVlRRG9NYV8WbC6-X1G",
+            "https://lh3.googleusercontent.com/d/16pfNqHPmYLuz-zVTYdmpfG8O-rnNFnnH", 
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
+            "https://thumbs.dreamstime.com/b/kitten-23995876.jpg", 
+            "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC"
+        ];
+        const texts = [
+            "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Васильківська, 90А (корп. 2, ауд. 211/2)</a></i>",
+            "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">просп. Глушкова, 4Г (каб. 999)</a></i>",
+            "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Васильківська, 90А (корп. 2, ауд. 210/2)</a></i>",
+            "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">просп. Глушкова, 4Г (ауд. 20)</a></i>",
+            "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">просп. Глушкова, 4Г (ауд. 227)</a></i>",
+            "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Васильківська, 90А (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">Володимирська, 60 (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">П. Скоропадського, 12 (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>",
+            "<b>Бізнес-школа / Business School</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"#\">НАЗВА ВУЛИЦІ (НОМЕР КАБІНЕТУ)</a></i>"
+        ];
+        const urls = [
+            "http://diia-business-knu.com",
+            "https://lunoteka.knu.ua",
+            "https://example.com/3",
+            "http://fb.com/groups/416391268735797",
+            "http://virgoua.org",
+            "http://ccouse.knu.ua",
+            "http://geo.ccouse.knu.ua",
+            "http://scp.knu.ua",
+            "http://rmn.knu.ua/",
+            "http://science.knu.ua",
+            "http://instagr.am/sfl_econom_knu",
+            "https://example.com/12",
+            "http://linktr.ee/business_school_knu"
+        ];
+        const grid = document.getElementById("grid");
+        for (let i = 0; i < images.length; i++) {
+            const rectangleWrapper = document.createElement("a");
+            rectangleWrapper.href = urls[i];
+            rectangleWrapper.target = "_blank";  
+            const rectangle = document.createElement("div");
+            rectangle.classList.add("rectangle");
+            const glow = document.createElement("div");
+            glow.classList.add("rectangle-glow");
+            const info = document.createElement("div");
+            info.classList.add("rectangle-info");
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("image-container");
+            const img = document.createElement("img");
+            img.src = images[i];
+            img.alt = `Image ${i + 1}`;
+            imageContainer.appendChild(img);
+            const textDiv = document.createElement("div");
+            textDiv.classList.add("text");
+            textDiv.innerHTML = texts[i];
+            rectangle.appendChild(glow);
+            rectangle.appendChild(info);
+            rectangle.appendChild(imageContainer);
+            rectangle.appendChild(textDiv);
+            rectangleWrapper.appendChild(rectangle);
+            grid.appendChild(rectangleWrapper);
+        }
+    </script>
+</body>
+</html>
