@@ -208,7 +208,6 @@ header a:hover { font-weight: bold; font-size: 1.4rem; }
         <a href="#">Інше</a>
         <a href="#">Контакти</a>
     </header>
-	<span id="header_page"></span>
     <div class="grid" id="grid"></div>
   <script>
     const images = [
@@ -309,19 +308,18 @@ header a:hover { font-weight: bold; font-size: 1.4rem; }
 document.getElementById("up_button").addEventListener("click", function(e) {
     e.preventDefault();
     window.scrollTo({
-        top: document.getElementById("header_page").offsetTop,
-        behavior: "smooth"
-    });
-});
-document.getElementById("down_button").addEventListener("click", function(e) {
-    e.preventDefault();
-    window.scrollTo({
-        top: document.getElementById("footer_page").offsetTop,
+        top: 0, 
         behavior: "smooth"
     });
 });
 
+document.getElementById("down_button").addEventListener("click", function(e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: document.documentElement.scrollHeight, 
+        behavior: "smooth"
+    });
+});
 </script>
-<span id="footer_page"></span>
 </body>
 </html>
