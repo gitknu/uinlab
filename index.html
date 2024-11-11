@@ -111,6 +111,7 @@
             position: relative;
             margin: 10% auto 0;
             overflow: hidden;
+            transition: opacity 0.5s ease-in-out;
         }
         .image-container img {
             position: absolute;
@@ -118,6 +119,7 @@
             transform: translate(-50%, -50%);
             width: 100%; height: 100%;
             object-fit: contain;
+            transition: opacity 0.5s ease-in-out;
         }
         .rectangle .text {
             width: 80%;
@@ -291,12 +293,20 @@
             e.preventDefault();
             const currentImage = imageContainer.querySelector("img");
             if (currentImage.src === images[i]) {
-                QRCode.toDataURL(urls[i], { width: 150, height: 150 }, function (err, url) {
-                    if (err) throw err;
-                    currentImage.src = url;
-                });
+                imageContainer.style.opacity = 0;
+                setTimeout(() => {
+                    QRCode.toDataURL(urls[i], { width: 150, height: 150 }, function (err, url) {
+                        if (err) throw err;
+                        currentImage.src = url;
+                        imageContainer.style.opacity = 1;
+                    });
+                }, 500);
             } else {
-                currentImage.src = images[i];
+                imageContainer.style.opacity = 0;
+                setTimeout(() => {
+                    currentImage.src = images[i];
+                    imageContainer.style.opacity = 1;
+                }, 500);
             }
         });
         iconsDiv.appendChild(leftIcon);
