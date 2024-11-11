@@ -290,7 +290,7 @@
             e.preventDefault();
             const currentImage = imageContainer.querySelector("img");
             if (currentImage.src === images[i]) {
-                currentImage.src = "https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&size=150x150";
+                currentImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(urls[i])}&size=150x150`;
             } else {
                 currentImage.src = images[i];
             }
