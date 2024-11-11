@@ -307,17 +307,16 @@ header a:hover { font-weight: bold; font-size: 1.4rem; }
     };
     window.onload = adjustHeight;
     window.onresize = adjustHeight;
-    
-    document.getElementById("up_button").addEventListener("click", function(e) {
+document.getElementById("up_button").addEventListener("click", function(e) {
     e.preventDefault();
-    window.scrollTo({
-        top: document.getElementById("header_page").offsetTop,
-        behavior: "smooth"
+    document.querySelector('html').scrollIntoView({
+        behavior: "smooth",
+        block: "start"
     });
 });
 document.getElementById("down_button").addEventListener("click", function(e) {
     e.preventDefault();
-    window.scrollTo({
+    document.querySelector('html').scrollTo({
         top: document.getElementById("footer_page").offsetTop,
         behavior: "smooth"
     });
