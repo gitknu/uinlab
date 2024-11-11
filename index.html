@@ -308,7 +308,7 @@
                 imageContainer.style.opacity = 0;
                 setTimeout(() => {
                     currentImage.src = images[i];
-                    currentImage.style.borderRadius = "0"; // Reset border-radius
+                    currentImage.style.borderRadius = "25px"; 
                     imageContainer.style.opacity = 1;
                 }, 500);
             }
@@ -317,7 +317,7 @@
         rightIcon.addEventListener("click", function(e) {
             e.preventDefault();
             const currentImage = imageContainer.querySelector("img");
-            if (window.innerWidth > window.innerHeight) { // Check if in horizontal orientation
+            if (window.innerWidth > window.innerHeight) { 
                 if (currentImage.src === images[i]) {
                     imageContainer.style.opacity = 0;
                     setTimeout(() => {
@@ -332,11 +332,11 @@
                     imageContainer.style.opacity = 0;
                     setTimeout(() => {
                         currentImage.src = images[i];
-                        currentImage.style.borderRadius = "0"; // Reset border-radius
+                        currentImage.style.borderRadius = "25px"; 
                         imageContainer.style.opacity = 1;
                     }, 500);
                 }
-            } else { // In vertical orientation, simply redirect to the mobile number
+            } else { 
                 window.location.href = rightIconUrls[i];
             }
         });
