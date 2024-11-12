@@ -14,7 +14,6 @@
             padding-top: 60px;
             font-family: "Montserrat", sans-serif;
             overflow-x: hidden;
-            min-height: 100vh; /* Ensure the body has a minimum height */
         }
         a {
             text-decoration: none;
@@ -64,7 +63,6 @@
             width: 100%;
             padding: 0 2vw;
             margin-top: 80px;
-            min-height: 1000px; /* Ensure the grid has a minimum height */
         }
         .rectangle {
             background-color: #b80000;
@@ -216,7 +214,6 @@
         <a href="#">Контакти</a>
     </header>
     <div class="grid" id="grid"></div>
-    <div style="height: 1000px;"></div> <!-- Added 1000px of background height -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script>
     const rectanglesData = [
@@ -404,6 +401,10 @@
     const adjustHeight = () => {
         const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
         rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
+
+        // Calculate the total height of the grid and set the body height accordingly
+        const gridHeight = grid.offsetHeight;
+        document.body.style.height = `${gridHeight + 1000}px`;
     };
     window.onload = adjustHeight;
     window.onresize = adjustHeight;
