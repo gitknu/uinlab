@@ -399,16 +399,11 @@
         return rectangleWrapper;
     });
     const adjustHeight = () => {
-    const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
-    rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
-
-    // Calculate the total height of the grid and set the body height accordingly
-    const gridHeight = grid.offsetHeight;
-    
-    // Ensure body height is always at least the grid height + 1000px
-    const bodyHeight = gridHeight + 1000;
-    document.body.style.height = `${bodyHeight}px`;
-};
+        const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
+        rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
+        const gridHeight = grid.offsetHeight;
+        document.body.style.height = `${gridHeight + 100}vh`;
+    };
     window.onload = adjustHeight;
     window.onresize = adjustHeight;
     document.getElementById("up_button").addEventListener("click", function(e) {
