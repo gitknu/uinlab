@@ -59,11 +59,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 2vw;
-            max-height: 80vh;
             width: 100%;
             padding: 0 2vw;
             margin-top: 80px;
             min-width: 400px;
+            min-height: calc(100vh - 140px); /* Ensure at least 100vh of space after the grid */
         }
         .rectangle {
             background-color: #b80000;
@@ -403,7 +403,7 @@
         const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
         rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
         const gridHeight = grid.offsetHeight;
-        document.body.style.height = `${Math.max(gridHeight + 100, window.innerHeight)}vh`;
+        document.body.style.height = `${gridHeight + 100}vh`;
     };
     window.onload = adjustHeight;
     window.onresize = adjustHeight;
