@@ -180,9 +180,9 @@
             transition: all 0.4s ease-in-out;
             z-index: 999;
         }
-        #up_button:hover, #down_button:hover,
+#up_button:hover, #down_button:hover,
 #up_button:active, #down_button:active {
-    width: 65px;
+    width: 65px; 
     height: 65px;
     box-shadow: 1px 1px 2px black;
 }
@@ -196,18 +196,13 @@
             height: 45px;
             transition: all 0.4s ease-in-out;
         }
-       @media (max-width: 1367px) and (orientation: portrait){
-    #up_button, #down_button { 
-        width: 75px; 
-        height: 75px; 
-    }
-    
-    /* Add active state for portrait */
+@media (max-width: 1367px) and (orientation: portrait){
+    #up_button, #down_button { width: 75px; height: 75px; }
+    #up_button:hover, #down_button:hover,
     #up_button:active, #down_button:active {
-        width: 70px;
+        width: 70px; 
         height: 70px;
     }
-        
     </style>
 </head>
 <body>
