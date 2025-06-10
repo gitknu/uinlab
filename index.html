@@ -358,13 +358,15 @@
             }
         });
         const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
-        rightIcon.addEventListener("click", function(e) {
+        // Replace only the rightIcon event listener block with this code
+rightIcon.addEventListener("click", function(e) {
     e.preventDefault();
-    // Check if device likely supports phone calls
-    if ("ontouchstart" in window && navigator.userAgent.includes("Mobile")) {
-        window.location.href = data.rightIconUrl;
-    } else {
-        // Desktop behavior: show QR code
+    // Directly open phone URL on mobile devices
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        window.open(data.rightIconUrl, '_self');
+    } 
+    // Desktop behavior remains the same
+    else {
         const currentImage = imageContainer.querySelector("img");
         if (currentImage.src === data.image) {
             imageContainer.style.opacity = 0;
