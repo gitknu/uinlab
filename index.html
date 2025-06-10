@@ -362,6 +362,7 @@
     e.preventDefault();
     const currentImage = imageContainer.querySelector("img");
     if (window.innerWidth > window.innerHeight) { 
+        // Desktop behavior remains the same
         if (currentImage.src === data.image) {
             imageContainer.style.opacity = 0;
             setTimeout(() => {
@@ -381,12 +382,36 @@
             }, 500);
         }
     } else { 
+        // Firefox mobile fix: create visible temporary link
         const phoneLink = document.createElement('a');
         phoneLink.href = data.rightIconUrl;
-        phoneLink.style.display = 'none';
+        phoneLink.textContent = 'Call';
+        phoneLink.style.position = 'fixed';
+        phoneLink.style.top = '0';
+        phoneLink.style.left = '0';
+        phoneLink.style.width = '100%';
+        phoneLink.style.height = '100%';
+        phoneLink.style.background = 'rgba(0,0,0,0.5)';
+        phoneLink.style.color = 'white';
+        phoneLink.style.display = 'flex';
+        phoneLink.style.justifyContent = 'center';
+        phoneLink.style.alignItems = 'center';
+        phoneLink.style.fontSize = '2rem';
+        phoneLink.style.zIndex = '10000';
+        phoneLink.style.cursor = 'pointer';
+        
+        phoneLink.onclick = function() {
+            document.body.removeChild(phoneLink);
+        };
+        
         document.body.appendChild(phoneLink);
-        phoneLink.click();
-        document.body.removeChild(phoneLink);
+        
+        // Auto-remove after timeout
+        setTimeout(() => {
+            if (document.body.contains(phoneLink)) {
+                document.body.removeChild(phoneLink);
+            }
+        }, 3000);
     }
 });
         iconsDiv.appendChild(leftIcon);
