@@ -357,33 +357,35 @@
                 }, 500);
             }
         });
-        const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
-        rightIcon.addEventListener("click", function(e) {
-            e.preventDefault();
-            const currentImage = imageContainer.querySelector("img");
-            if (window.innerWidth > window.innerHeight) { 
-                if (currentImage.src === data.image) {
-                    imageContainer.style.opacity = 0;
-                    setTimeout(() => {
-                        QRCode.toDataURL(data.rightIconUrl, { width: 150, height: 150 }, function (err, url) {
-                            if (err) throw err;
-                            currentImage.src = url;
-                            currentImage.style.borderRadius = "25px"; 
-                            imageContainer.style.opacity = 1;
-                        });
-                    }, 500);
-                } else {
-                    imageContainer.style.opacity = 0;
-                    setTimeout(() => {
-                        currentImage.src = data.image;
-                        currentImage.style.borderRadius = "25px"; 
-                        imageContainer.style.opacity = 1;
-                    }, 500);
-                }
-            } else { 
-                window.location.href = data.rightIconUrl;
-            }
-        });
+        // REPLACE the rightIcon event listener with this code:
+const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
+rightIcon.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation(); 
+    const currentImage = imageContainer.querySelector("img");
+    if (window.innerWidth > window.innerHeight) { 
+        if (currentImage.src === data.image) {
+            imageContainer.style.opacity = 0;
+            setTimeout(() => {
+                QRCode.toDataURL(data.rightIconUrl, { width: 150, height: 150 }, function (err, url) {
+                    if (err) throw err;
+                    currentImage.src = url;
+                    currentImage.style.borderRadius = "25px"; 
+                    imageContainer.style.opacity = 1;
+                });
+            }, 500);
+        } else {
+            imageContainer.style.opacity = 0;
+            setTimeout(() => {
+                currentImage.src = data.image;
+                currentImage.style.borderRadius = "25px"; 
+                imageContainer.style.opacity = 1;
+            }, 500);
+        }
+    } else { 
+        window.location.href = data.rightIconUrl;
+    }
+});
         iconsDiv.appendChild(leftIcon);
         iconsDiv.appendChild(rightIcon);
         rectangle.appendChild(glow);
