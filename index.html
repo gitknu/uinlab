@@ -39,6 +39,16 @@
             transition: all 0.3s ease;
         }
         header a:hover { font-weight: bold; font-size: 1.4rem; }
+  .page-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800; 
+    color: white; 
+    text-align: center;
+    text-shadow: 0 0 2px white, 0 0 5px white; 
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    margin: 20px 0;
+    padding: 0 20px;
+  }
         @media (orientation: portrait) {
             header a { font-size: 0; }
             header a:hover { font-size: 0; }
@@ -214,6 +224,8 @@
         <a href="#">Інше</a>
         <a href="#">Контакти</a>
     </header>
+    <!-- Add this element below the header but above the grid -->
+<div class="page-title">Віртуальний інноваційний хаб</div>
     <div class="grid" id="grid"></div>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
   <script>
@@ -357,35 +369,33 @@
                 }, 500);
             }
         });
-        // REPLACE the rightIcon event listener with this code:
-const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
-rightIcon.addEventListener("click", function(e) {
-    e.preventDefault();
-    e.stopPropagation(); 
-    const currentImage = imageContainer.querySelector("img");
-    if (window.innerWidth > window.innerHeight) { 
-        if (currentImage.src === data.image) {
-            imageContainer.style.opacity = 0;
-            setTimeout(() => {
-                QRCode.toDataURL(data.rightIconUrl, { width: 150, height: 150 }, function (err, url) {
-                    if (err) throw err;
-                    currentImage.src = url;
-                    currentImage.style.borderRadius = "25px"; 
-                    imageContainer.style.opacity = 1;
-                });
-            }, 500);
-        } else {
-            imageContainer.style.opacity = 0;
-            setTimeout(() => {
-                currentImage.src = data.image;
-                currentImage.style.borderRadius = "25px"; 
-                imageContainer.style.opacity = 1;
-            }, 500);
-        }
-    } else { 
-        window.location.href = data.rightIconUrl;
-    }
-});
+        const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
+        rightIcon.addEventListener("click", function(e) {
+            e.preventDefault();
+            const currentImage = imageContainer.querySelector("img");
+            if (window.innerWidth > window.innerHeight) { 
+                if (currentImage.src === data.image) {
+                    imageContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        QRCode.toDataURL(data.rightIconUrl, { width: 150, height: 150 }, function (err, url) {
+                            if (err) throw err;
+                            currentImage.src = url;
+                            currentImage.style.borderRadius = "25px"; 
+                            imageContainer.style.opacity = 1;
+                        });
+                    }, 500);
+                } else {
+                    imageContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        currentImage.src = data.image;
+                        currentImage.style.borderRadius = "25px"; 
+                        imageContainer.style.opacity = 1;
+                    }, 500);
+                }
+            } else { 
+                window.location.href = data.rightIconUrl;
+            }
+        });
         iconsDiv.appendChild(leftIcon);
         iconsDiv.appendChild(rightIcon);
         rectangle.appendChild(glow);
