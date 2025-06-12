@@ -342,10 +342,7 @@
             audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
         }
     ];
-
     const grid = document.getElementById("grid");
-    
-    // Creates an icon link
     const createIcon = (url, src) => {
         const a = document.createElement("a");
         a.href = url;
@@ -354,40 +351,29 @@
         a.appendChild(img);
         return a;
     };
-    
-    // Creates a single rectangle card
     const createRectangle = (data) => {
         const rectangleWrapper = document.createElement("a");
         rectangleWrapper.href = data.url;
         rectangleWrapper.target = "_blank";  
-        
         const rectangle = document.createElement("div");
         rectangle.classList.add("rectangle");
-        
         const glow = document.createElement("div");
         glow.classList.add("rectangle-glow");
-        
         const info = document.createElement("div");
         info.classList.add("rectangle-info");
-        
         const imageContainer = document.createElement("div");
         imageContainer.classList.add("image-container");
         const img = document.createElement("img");
         img.src = data.image;
         img.alt = `Image ${data.image}`;
         imageContainer.appendChild(img);
-        
         const textDiv = document.createElement("div");
         textDiv.classList.add("text");
         textDiv.innerHTML = data.text;
-        
-        // --- Create Audio Player ---
         const playerDiv = document.createElement('div');
         playerDiv.className = 'player';
-        
         const canvas = document.createElement('canvas');
         canvas.className = 'visualizer';
-        
         const audio = document.createElement('audio');
         audio.src = data.audioSrc;
         audio.crossOrigin = "anonymous";
