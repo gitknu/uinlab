@@ -406,11 +406,8 @@ function initCanvas(canvas, audioElem) {
         
         for (let i = 0; i < bufferLength; i++) {
             const barHeight = dataArray[i] / 2;
-            const r = 255 - (barHeight * 2);
-            const g = barHeight * 2;
-            const b = 50;
+            ctx.fillStyle = 'black';
             
-            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
             ctx.fillRect(i * barWidth, cheight - barHeight, barWidth, barHeight);
         }
     }
