@@ -8,7 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(135deg, #000428, #004e92);
+            background: linear-gradient(135deg, #fff9f8, #fda95d);
             background-size: cover;
             background-attachment: fixed;
             padding-top: 60px;
@@ -39,16 +39,17 @@
             transition: all 0.3s ease;
         }
         header a:hover { font-weight: bold; font-size: 1.4rem; }
-        .page-title 5
-            font-family: "Montserrat", sans-serif;
-            font-weight: 800;  
-            color: white;  
-            text-align: center;
-            text-shadow: 0 0 2px white, 0 0 5px white;  
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            margin: 20px 0;
-            padding: 0 20px;
-        }
+  .page-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800; 
+    color: grey;
+    opacity: 0.75;
+    text-align: center;
+    text-shadow: 0 0 2px white, 0 0 5px white; 
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    margin: 20px 0;
+    padding: 0 20px;
+  }     
         @media (orientation: portrait) {
             header a { font-size: 0; }
             header a:hover { font-size: 0; }
@@ -148,7 +149,6 @@
         }
         .rectangle .text a { display: block; text-align: right; margin-top: 32px; }
         .rectangle .text p { margin: 10px 0; }
-        
         .player {
             position: absolute;
             bottom: 70px; 
@@ -165,7 +165,6 @@
             height: 100%;
             display: block;
         }
-
         .rectangle .icons {
             display: flex;
             justify-content: space-around;
@@ -191,7 +190,7 @@
             position: fixed;
             right: 20px;
             width: 70px; height: 70px;
-            background-color: #f79d97;
+            background-color: #fdc592;
             color: black;
             border-radius: 50%;
             text-align: center;
