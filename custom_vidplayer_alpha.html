@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom YouTube Player</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .player-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .player-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-4xl mx-auto">
+        <div class="mb-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+        </div>
+        <div id="error-message" class="hidden bg-red-800 border border-red-600 text-white text-sm rounded-lg p-3 mb-4 text-center">
+        </div>
+        <div class="player-container bg-black rounded-lg shadow-2xl mb-6">
+            <div id="player"></div>
+        </div>
+        <div class="flex items-center justify-center space-x-4">
+            <button id="playBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                <span>Play</span>
+            </button>
+            <button id="pauseBtn" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 flex items-center space-x-2">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1H8zm3 0a1 1 0 00-1 1v4a1 1 0 001 1h1a1 1 0 001-1V8a1 1 0 00-1-1h-1z" clip-rule="evenodd" /></svg>
+                <span>Pause</span>
+            </button>
+            <button id="stopBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 flex items-center space-x-2">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 9a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1v-1a1 1 0 00-1-1H8z" clip-rule="evenodd" /></svg>
+                <span>Stop</span>
+            </button>
+        </div>
+    </div>
+    <script>
+        // 1. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var player; // This will be our player object
+        const errorMessageDiv = document.getElementById('error-message');
+
+        // A video ID that is known to work for embedding.
+        // From YouTube's official API announcement: https://www.youtube.com/watch?v=M7lc1UVf-VE
+        let currentVideoId = 'M7lc1UVf-VE'; 
+
+        // 2. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads. It's a required function name.
+        function onYouTubeIframeAPIReady() {
+            loadPlayer(currentVideoId);
+        }
+
+        function loadPlayer(videoId) {
+            if (player) {
+                player.destroy();
+            }
+            errorMessageDiv.classList.add('hidden'); // Hide previous errors
+
+            player = new YT.Player('player', {
+                videoId: videoId,
+                playerVars: {
+                    'playsinline': 1,
+                    'autoplay': 0,
+                    // The 'controls' parameter is now set to 0 to hide the default YouTube controls.
+                    'controls': 0,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    // This event listener is key for catching errors
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        // 3. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            // Setup button event listeners only once player is ready
+            document.getElementById('playBtn').onclick = () => player.playVideo();
+            document.getElementById('pauseBtn').onclick = () => player.pauseVideo();
+            document.getElementById('stopBtn').onclick = () => player.stopVideo();
+        }
+
+        // 4. This function is called when an error occurs in the player.
+        function onPlayerError(event) {
+            // https://developers.google.com/youtube/iframe_api_reference#onError
+            let errorText = "An unknown error occurred.";
+            if (event.data === 2) {
+                errorText = "The request contains an invalid parameter value. This may happen if the video ID is incorrect.";
+            } else if (event.data === 5) {
+                errorText = "The requested content cannot be played in an HTML5 player or another error related to the HTML5 player has occurred.";
+            } else if (event.data === 100) {
+                errorText = "The video requested was not found. This occurs when a video has been removed (for any reason) or has been marked as private.";
+            } else if (event.data === 101 || event.data === 150) {
+                errorText = "The owner of the requested video does not allow it to be played in embedded players. This is the most common reason for a video to be 'unavailable'.";
+            }
+            errorMessageDiv.textContent = errorText + " Please try a different video ID.";
+            errorMessageDiv.classList.remove('hidden');
+        }
+
+        // 5. Event listener for the "Load Video" button
+        document.getElementById('loadVideoBtn').addEventListener('click', () => {
+            const videoIdInput = document.getElementById('videoIdInput');
+            const newVideoId = videoIdInput.value.trim();
+            // Basic check to see if input is not empty
+            if (newVideoId) {
+                loadPlayer(newVideoId);
+            } else {
+                errorMessageDiv.textContent = "Please enter a YouTube Video ID.";
+                errorMessageDiv.classList.remove('hidden');
+            }
+        });
+        
+        // Also load when user presses Enter in the input field
+        document.getElementById('videoIdInput').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById('loadVideoBtn').click();
+            }
+        });
+
+    </script>
+</body>
+</html>
