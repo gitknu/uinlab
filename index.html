@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UInLab</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fff9f8, #fda95d);
+            background-size: cover;
+            background-attachment: fixed;
+            /* MODIFIED: Removed static padding-top. It will now be set dynamically by JavaScript. */
+            font-family: "Montserrat", sans-serif;
+            overflow-x: hidden;
+            line-height: 1.05;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        a:hover, a:focus, a:visited, a:active { color: inherit; text-decoration: none; }
+        header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            background-color: white;
+            color: black;
+            z-index: 9999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            transition: padding 0.4s ease;
+        }
+        .header-icon {
+            height: 80px;
+            width: auto;
+        }
+        .header-nav {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .header-placeholder {
+            width: 50px;
+        }
+        header a {
+            margin: 0 20px;
+            transition: all 0.3s ease;
+        }
+        header a:hover { font-weight: bold; font-size: 1.4rem; }
+        .page-title {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            color: grey;
+            opacity: 0.75;
+            text-align: center;
+            text-shadow: 0 0 2px white, 0 0 5px white;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        @media (orientation: portrait) {
+            .header-icon {
+                height: 40px;
+            }
+            .header-placeholder {
+                width: 40px;
+            }
+            header a { font-size: 0; }
+            header a:hover { font-size: 0; }
+            header a::before {
+                content: "";
+                display: block;
+                width: 25px; height: 25px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            header a:nth-child(1)::before { background-image: url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png'); }
+            header a:nth-child(2)::before { background-image: url('https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/512/save-icon.png'); }
+            header a:nth-child(3)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Book-Reference-icon.png'); }
+            header a:nth-child(4)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png'); }
+            header a:nth-child(5)::before { background-image: url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png'); }
+        }
+        .info-banner {
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            width: 100vw;
+            height: 50vh;
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .info-banner p {
+            font-size: clamp(1.5rem, 6vmin, 2.5rem);
+            color: #333;
+            font-weight: 500;
+            max-width: 1000px;
+            text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.5);
+            padding: 0 5vw;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #spacer-block {
+            position: relative;
+            left: 50%;
+            margin-left: -50vw;
+            width: 100vw;
+            background: rgba(255, 255, 255, 0.0);
+            transition: height 0.2s ease-out;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2vw;
+            width: 100%;
+            padding: 0 2vw;
+            margin-top: 20px;
+            min-width: 400px;
+            min-height: calc(100vh - 140px);
+        }
+        .rectangle {
+            background-color: rgba(253, 225, 197, 1);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: height 0.3s ease-in-out;
+            padding-bottom: 50%;
+        }
+        .rectangle-glow, .rectangle-info {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 10px;
+            z-index: 0;
+        }
+        .rectangle-info::before, .rectangle-glow::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(0deg);
+            width: 99999px; height: 99999px;
+            background-image: conic-gradient(rgba(0,0,0,0), #1976ed, rgba(0,0,0,0) 25%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+        }
+        .rectangle-info::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            left: 5px; top: 5px;
+            width: calc(100% - 10px); height: calc(100% - 10px);
+            background: rgba(253, 225, 197, 1);
+            border-radius: 7px;
+        }
+        @keyframes rotate { 100% { transform: translate(-50%, -50%) rotate(1turn); } }
+        .rectangle:hover .rectangle-glow::before { opacity: 1; }
+        .image-container {
+            width: 80%; height: 0;
+            padding-top: 80%;
+            position: relative;
+            margin: 10% auto 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .image-container img {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            object-fit: contain;
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 25px;
+        }
+        .rectangle .text {
+            width: 80%;
+            margin: 5% auto;
+            color: #333;
+            font-size: clamp(16px, 2vw, 0.9rem);
+            z-index: 1;
+        }
+        .rectangle .text b {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .rectangle .text a { display: block; text-align: right; margin-top: 32px; }
+        .rectangle .text p { margin: 10px 0; }
+        .player {
+            position: absolute;
+            bottom: 70px;
+            left: 10%;
+            width: 80%;
+            height: 40px;
+            z-index: 2;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .player canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .rectangle .icons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: absolute;
+            bottom: 16px;
+            width: 100%;
+            z-index: 1;
+        }
+        .rectangle .icons a {
+            width: 20%; height: 0;
+            padding-top: 20%;
+            position: relative;
+        }
+        .rectangle .icons a img {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+            object-fit: contain;
+        }
+        #up_button, #down_button {
+            position: fixed;
+            right: 20px;
+            width: 70px; height: 70px;
+            background-color: #fdc592;
+            color: black;
+            border-radius: 50%;
+            text-align: center;
+            font-size:40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 3px 4px black;
+            opacity: 0.7;
+            transition: all 0.4s ease-in-out;
+            z-index: 999;
+        }
+        #up_button:hover, #down_button:hover {
+            width: 65px; height: 65px;
+            box-shadow: 1px 1px 2px black;
+        }
+        #up_button:hover .button_icon, #down_button:hover .button_icon {
+            transform: scale(0.95);
+        }
+        #up_button { bottom: 100px; }
+        #down_button { bottom: 20px; }
+        .button_icon {
+            height: 45px;
+            transition: all 0.4s ease-in-out;
+        }
+        @media (max-width: 1367px) and (orientation: portrait){
+            #up_button, #down_button { width: 75px; height: 75px; }
+            #up_button { bottom: 100px; }
+            .button_icon { height: 50px; }
+            .player {
+                bottom: 105px;
+                height: 70px;
+                left: 5%;
+                width: 85%;
+            }
+        }
+        @media (hover: hover) and (min-width: 768px) {
+            header:has(.header-nav a:hover) {
+                padding-top: 17px;
+                padding-bottom: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+   <a href="#header_page" id="up_button" style="display: flex; justify-content: center; align-items: center;">
+     <img class="button_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-up-drop-circle-outline-icon.png" alt="⬆" />
+   </a>
+   <a href="#footer_page" id="down_button">
+     <img class="button_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-down-drop-circle-outline-icon.png" alt="⬇" />
+   </a>
+     <header>
+         <img class="header-icon" src="https://gitknu.github.io/uinlab/icon_knunicorn.svg" alt="UInLab Icon">
+         <nav class="header-nav">
+           <a href="https://web.whatsapp.com" target="_blank">Новини</a>
+           <a href="https://drive.google.com" target="_blank">Файли</a>
+           <a href="#">Деталі</a>
+           <a href="#">Інше</a>
+           <a href="#">Контакти</a>
+         </nav>
+         <div class="header-placeholder"></div>
+     </header>
+     <div class="page-title">Віртуальний інноваційний хаб</div>
+     <div class="info-banner">
+         <p>Отримуйте безкоштовні консультації, відвідуйте освітні події, тестуйте продукцію та розвивайте бізнес в Україні та за кордоном</p>
+     </div>
+     <div id="spacer-block"></div>
+     <div class="grid" id="grid"></div>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+<script>
+    const rectanglesData = [
+        {
+            image: "https://lh3.googleusercontent.com/d/1HaIJ-qBk5NndQVwA48lZ4Z1ys3nGw4Qh",
+            text: "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Коворкінг і бібліотека від Центру Дія.Бізнес. Долучайтеся до подій у нашому хабі на економічному! </p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",
+            url: "http://diia-business-knu.com",
+            rightIconUrl: "tel:0635461848",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1lBW1KML8N4RJP776NEdcABso0fDgplWV",
+            text: "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Завжди раді новим спікерам!</p><i><a href=\"https://maps.app.goo.gl/fpYteGmxhHfNraZx8\">просп. Глушкова, 4Г<br>(каб. 999)</a></i>",
+            url: "https://lunoteka.knu.ua",
+            rightIconUrl: "tel:0636479969",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)</a></i>",
+            url: "https://example.com/3",
+            rightIconUrl: "tel:0445313329",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1vRPV0LR_eGMVKwb0T_4BHXPOziLgxNH9",
+            text: "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки для молодих новаторів у стінах #ТвійФРЕКС!</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 20)</a></i>",
+            url: "http://fb.com/groups/416391268735797",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://virgoua.org",
+            rightIconUrl: "tel:0445264457",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/13n1BnfjEmFkucMoAvHaTF6hn8tRg8QPv",
+            text: "<b>ЦККНО<br>НДТБМ<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 227)</a></i>",
+            url: "http://ccouse.knu.ua",
+            rightIconUrl: "tel:0445213235",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>ЦККНО<br>СТДР<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">Васильківська, 90А<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://geo.ccouse.knu.ua",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1gmv20DF5jGeTSTgbt1SM2pIqcLcu3tJh",
+            text: "<b>Науковий парк / Science Park<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/j2tLYgF25Q2KZSx69\">Володимирська, 60<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://scp.knu.ua",
+            rightIconUrl: "tel:0442393468",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/16pfNqHPmYLuz-zVTYdmpfG8O-rnNFnnH",
+            text: "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://rmn.knu.ua/",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/rTunRwwEwteYbuHX7\">Скоропадського, 14А<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://science.knu.ua",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Школа лідерства / The School for Future Leaders</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://instagr.am/sfl_econom_knu",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Всеукраїнський фестиваль інновацій</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "https://example.com/12",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Young Innovation Hackathon<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://linktr.ee/business_school_knu",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC",
+            text: "<b>Бізнес-школа / Business School<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "https://example.com/14",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        }
+    ];
+
+    const grid = document.getElementById("grid");
+    const header = document.querySelector('header');
+
+    const createIcon = (url, src) => {
+        const a = document.createElement("a");
+        a.href = url;
+        const img = document.createElement("img");
+        img.src = src;
+        a.appendChild(img);
+        return a;
+    };
+    const createRectangle = (data) => {
+        const rectangleWrapper = document.createElement("a");
+        rectangleWrapper.href = data.url;
+        rectangleWrapper.target = "_blank";
+        const rectangle = document.createElement("div");
+        rectangle.classList.add("rectangle");
+        const glow = document.createElement("div");
+        glow.classList.add("rectangle-glow");
+        const info = document.createElement("div");
+        info.classList.add("rectangle-info");
+        const imageContainer = document.createElement("div");
+        imageContainer.classList.add("image-container");
+        const img = document.createElement("img");
+        img.src = data.image;
+        img.alt = `Image ${data.image}`;
+        imageContainer.appendChild(img);
+        const textDiv = document.createElement("div");
+        textDiv.classList.add("text");
+        textDiv.innerHTML = data.text;
+        const playerDiv = document.createElement('div');
+        playerDiv.className = 'player';
+        const canvas = document.createElement('canvas');
+        canvas.className = 'visualizer';
+        const audio = document.createElement('audio');
+        audio.src = data.audioSrc;
+        audio.crossOrigin = "anonymous";
+        playerDiv.appendChild(canvas);
+        playerDiv.appendChild(audio);
+        const iconsDiv = document.createElement("div");
+        iconsDiv.classList.add("icons");
+        const leftIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Ecommerce-Qr-Code-icon.png");
+        leftIcon.addEventListener("click", function(e) {
+            e.preventDefault();
+            const currentImage = imageContainer.querySelector("img");
+            if (currentImage.src === data.image) {
+                imageContainer.style.opacity = 0;
+                setTimeout(() => {
+                    QRCode.toDataURL(data.url, { width: 150, height: 150 }, function (err, url) {
+                        if (err) throw err;
+                        currentImage.src = url;
+                        currentImage.style.borderRadius = "25px";
+                        imageContainer.style.opacity = 1;
+                    });
+                }, 500);
+            } else {
+                imageContainer.style.opacity = 0;
+                setTimeout(() => {
+                    currentImage.src = data.image;
+                    currentImage.style.borderRadius = "25px";
+                    imageContainer.style.opacity = 1;
+                }, 500);
+            }
+        });
+        const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
+        rightIcon.addEventListener("click", function(e) {
+            e.preventDefault();
+            const currentImage = imageContainer.querySelector("img");
+            if (window.innerWidth > window.innerHeight) {
+                if (currentImage.src === data.image) {
+                    imageContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        QRCode.toDataURL(data.rightIconUrl, { width: 150, height: 150 }, function (err, url) {
+                            if (err) throw err;
+                            currentImage.src = url;
+                            currentImage.style.borderRadius = "25px";
+                            imageContainer.style.opacity = 1;
+                        });
+                    }, 500);
+                } else {
+                    imageContainer.style.opacity = 0;
+                    setTimeout(() => {
+                        currentImage.src = data.image;
+                        currentImage.style.borderRadius = "25px";
+                        imageContainer.style.opacity = 1;
+                    }, 500);
+                }
+            } else {
+                window.location.href = data.rightIconUrl;
+            }
+        });
+        iconsDiv.appendChild(leftIcon);
+        iconsDiv.appendChild(rightIcon);
+        rectangle.appendChild(glow);
+        rectangle.appendChild(info);
+        rectangle.appendChild(imageContainer);
+        rectangle.appendChild(textDiv);
+        rectangle.appendChild(playerDiv);
+        rectangle.appendChild(iconsDiv);
+        rectangleWrapper.appendChild(rectangle);
+        return rectangleWrapper;
+    };
+    const rectangles = rectanglesData.map((data) => {
+        const rectangleWrapper = createRectangle(data);
+        grid.appendChild(rectangleWrapper);
+        return rectangleWrapper;
+    });
+
+    // This function sets the height of the grid items to be uniform.
+    const adjustHeight = () => {
+        const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
+        rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
+    };
+
+    // This function calculates and sets the height of the spacer div.
+    const updateSpacerHeight = () => {
+        const spacer = document.getElementById('spacer-block');
+        const banner = document.querySelector('.info-banner');
+
+        if (!spacer || !banner) return;
+
+        const bannerBottomAbsolute = banner.offsetTop + banner.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        const spacerHeight = viewportHeight - bannerBottomAbsolute;
+
+        spacer.style.height = spacerHeight > 0 ? `${spacerHeight}px` : '0px';
+    };
+
+    // MODIFIED: New function to dynamically set body padding based on header height.
+    const adjustBodyPadding = () => {
+        const headerHeight = header.offsetHeight;
+        // Sets padding to header height + 2% of viewport height (2vh)
+        document.body.style.paddingTop = `${headerHeight + (window.innerHeight * 0.02)}px`;
+    };
+
+    window.onload = () => {
+        adjustBodyPadding(); // Set padding on load
+        adjustHeight();
+        updateSpacerHeight();
+    };
+    window.onresize = () => {
+        adjustBodyPadding(); // Adjust padding on resize
+        adjustHeight();
+        updateSpacerHeight();
+    };
+
+    document.getElementById("up_button").addEventListener("click", function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("down_button").addEventListener("click", function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    });
+
+    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+    let currentPlayingAudio = null;
+
+    function initCanvas(canvas) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        const ctx = canvas.getContext('2d');
+        const cwidth = canvas.width;
+        const cheight = canvas.height - 2;
+        const meterWidth = 10, gap = 2;
+        const meterNum = Math.floor(cwidth / (meterWidth + gap));
+        const gradient = ctx.createLinearGradient(0, 0, 0, cheight);
+        gradient.addColorStop(1, '#000000'); // Black
+        gradient.addColorStop(0, '#0072ff'); // Blue
+        ctx.clearRect(0, 0, cwidth, canvas.height);
+        for (let i = 0; i < meterNum; i++) {
+            ctx.fillStyle = gradient;
+            ctx.fillRect(i * (meterWidth + gap), cheight, meterWidth, 2);
+        }
+    }
+
+    document.querySelectorAll('.player').forEach(player => {
+        const canvas = player.querySelector('canvas');
+        const audio = player.querySelector('audio');
+        let audioCtx, analyser, animationFrameId;
+        let capYPositionArray = [];
+        let isInitialized = false;
+        let prevWidth = canvas.clientWidth;
+        let prevHeight = canvas.clientHeight;
+
+        initCanvas(canvas);
+
+        function renderFrame() {
+            if (audio.paused || audio.ended) {
+                cancelAnimationFrame(animationFrameId);
+                initCanvas(canvas);
+                if (audio.ended) {
+                    currentPlayingAudio = null;
+                }
+                return;
+            }
+
+            if (canvas.clientWidth !== prevWidth || canvas.clientHeight !== prevHeight) {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                prevWidth = canvas.clientWidth;
+                prevHeight = canvas.clientHeight;
+                capYPositionArray = [];
+            }
+
+            const canvasCtx = canvas.getContext('2d');
+            const cwidth = canvas.width;
+            const cheight = canvas.height;
+            const meterWidth = 5, gap = 2, capHeight = 2;
+            const meterNum = Math.floor(cwidth / (meterWidth + gap));
+            const frequencyData = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(frequencyData);
+            const step = Math.round(frequencyData.length / meterNum);
+
+            canvasCtx.clearRect(0, 0, cwidth, cheight);
+            const gradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
+            gradient.addColorStop(1, '#000000'); // Black
+            gradient.addColorStop(0, '#0072ff'); // Blue
+            const capGradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
+            capGradient.addColorStop(1, 'white');
+            capGradient.addColorStop(0, '#eee');
+
+            for (let i = 0; i < meterNum; i++) {
+                const value = frequencyData[i * step];
+                if (capYPositionArray.length < meterNum) {
+                    capYPositionArray.push(value);
+                }
+                canvasCtx.fillStyle = capGradient;
+                if (value < capYPositionArray[i]) {
+                    canvasCtx.fillRect(i * (meterWidth + gap), cheight - (--capYPositionArray[i]), meterWidth, capHeight);
+                } else {
+                    canvasCtx.fillRect(i * (meterWidth + gap), cheight - value, meterWidth, capHeight);
+                    capYPositionArray[i] = value;
+                }
+                canvasCtx.fillStyle = gradient;
+                const barHeight = value * (cheight / 255);
+                canvasCtx.fillRect(i * (meterWidth + gap), cheight - barHeight, meterWidth, barHeight);
+            }
+            animationFrameId = requestAnimationFrame(renderFrame);
+        }
+
+        function setupVisualization() {
+            if (isInitialized) return;
+            audioCtx = new AudioContext();
+            analyser = audioCtx.createAnalyser();
+            const source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            analyser.fftSize = 256;
+            isInitialized = true;
+        }
+
+        audio.onplay = () => {
+            setupVisualization();
+            renderFrame();
+        };
+
+        player.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentPlayingAudio && currentPlayingAudio !== audio) {
+                currentPlayingAudio.pause();
+            }
+            if (audio.paused) {
+                audio.play();
+                currentPlayingAudio = audio;
+            } else {
+                audio.pause();
+                currentPlayingAudio = null;
+            }
+        });
+    });
+</script>
+</body>
+</html>
