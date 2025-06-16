@@ -6,7 +6,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
         :root {
-            --header-height: 110px; /* Default header height */
+            --header-height: 110px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -143,8 +143,6 @@
                 margin-top: 25px;
             }
         }
-
-        /* --- START: Modified Banner Styles --- */
         .info-banner-2 { /* Empty spacer banner */
             height: var(--header-height);
             width: 100vw;
@@ -152,7 +150,6 @@
             left: 50%;
             margin-left: -50vw;
         }
-
         .info-banner-3 { /* Wide text banner */
             position: relative;
             left: 50%;
@@ -183,13 +180,12 @@
             gap: 2vw;
             box-sizing: border-box;
         }
-        
         @media (max-width: 800px) {
             .info-banner-2 {
-                height: var(--header-height) !important; /* Keep spacer consistent */
+                height: var(--header-height) !important; 
             }
             .info-banner-3, .info-banner-4 {
-                height: auto; /* Allow content to define height */
+                height: auto; 
                 min-height: 40vh;
                 flex-direction: column;
                 padding: 5vh 5vw;
@@ -410,7 +406,6 @@
 <p>У ЦККНО студенти, аспіранти, незалежні дослідники та представники бізнесу можуть використати унікальне наукове обладнання для проведення наукових досліджень та науково-технічних розробок</p>
       </div>
     </div>
-    <!-- END: Added Banners HTML -->
      <div class="grid" id="grid"></div>
    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
 <script>
@@ -624,13 +619,11 @@
         const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
         rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
     };
-    
     const adjustLayout = () => {
         const headerHeight = header.offsetHeight;
         document.body.style.paddingTop = `${headerHeight}px`;
         document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
     };
-
     window.onload = () => {
         adjustLayout();
         adjustHeight();
