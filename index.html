@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +10,6 @@
             background: linear-gradient(135deg, #fff9f8, #fda95d);
             background-size: cover;
             background-attachment: fixed;
-            /* MODIFIED: Removed static padding-top. It will now be set dynamically by JavaScript. */
             font-family: "Montserrat", sans-serif;
             overflow-x: hidden;
             line-height: 1.05;
@@ -86,7 +84,6 @@
             header a:nth-child(4)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png'); }
             header a:nth-child(5)::before { background-image: url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png'); }
         }
-        /* MODIFIED: Updated .info-banner styles for flex layout */
         .info-banner {
             position: relative;
             left: 50%;
@@ -103,13 +100,11 @@
             padding: 4vw;
             gap: 2vw;
         }
-        /* MODIFIED: New container for the text */
         .info-text {
             flex: 1 1 500px;
             text-align: center;
             max-width: 45%;
         }
-        /* MODIFIED: Adjusted paragraph styles to work within the new flex container */
         .info-banner p {
             font-size: clamp(1.05rem, 4.5vmin, 2.05rem);
             color: #333;
@@ -120,7 +115,6 @@
             box-sizing: border-box;
             max-width: 100%;
         }
-        /* MODIFIED: New container for the video */
         .info-video {
             flex: 1 1 500px;
             max-width: 45%;
@@ -133,7 +127,6 @@
             border-radius: 15px;
             border: none;
         }
-        /* MODIFIED: New media query for responsive banner layout */
         @media (max-width: 800px) {
             .info-banner {
                 flex-direction: column;
@@ -343,12 +336,10 @@
          <div class="header-placeholder"></div>
      </header>
      <div class="page-title">Віртуальний інноваційний хаб KNUnicorn</div>
-    <!-- MODIFIED: Restructured the info-banner HTML -->
      <div class="info-banner">
         <div class="info-text">
             <p>Віртуальний простір, який об'єднує інноваторів, учених, підприємців та інвесторів з різних країн для співпраці над інноваційними проєктами та ідеями, обміну знаннями, пошуку рішень складних проблем, розвитку молодіжного новаторства, імплементації технологічних рішень для розвитку економіки</p>
         </div>
-        <!-- REPLACE this div -->
 <div class="info-video">
     <iframe src="https://www.youtube.com/embed/r8OipmKFDeM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
@@ -457,10 +448,8 @@
             audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
         }
     ];
-
     const grid = document.getElementById("grid");
     const header = document.querySelector('header');
-
     const createIcon = (url, src) => {
         const a = document.createElement("a");
         a.href = url;
@@ -565,35 +554,23 @@
         grid.appendChild(rectangleWrapper);
         return rectangleWrapper;
     });
-
-    // This function sets the height of the grid items to be uniform.
     const adjustHeight = () => {
         const maxHeight = Math.max(...rectangles.map(rectangle => rectangle.offsetHeight));
         rectangles.forEach(rectangle => rectangle.style.height = `${maxHeight}px`);
     };
-
-    // This function calculates and sets the height of the spacer div.
     const updateSpacerHeight = () => {
         const spacer = document.getElementById('spacer-block');
         const banner = document.querySelector('.info-banner');
-
         if (!spacer || !banner) return;
-
         const bannerBottomAbsolute = banner.offsetTop + banner.offsetHeight;
         const viewportHeight = window.innerHeight;
-
         const spacerHeight = viewportHeight - bannerBottomAbsolute;
-
         spacer.style.height = spacerHeight > 0 ? `${spacerHeight}px` : '0px';
     };
-
-    // MODIFIED: New function to dynamically set body padding based on header height.
     const adjustBodyPadding = () => {
         const headerHeight = header.offsetHeight;
-        // Sets padding to header height + 2% of viewport height (2vh)
         document.body.style.paddingTop = `${headerHeight + (window.innerHeight * 0.02)}px`;
     };
-
     window.onload = () => {
         adjustBodyPadding(); // Set padding on load
         adjustHeight();
@@ -604,7 +581,6 @@
         adjustHeight();
         updateSpacerHeight();
     };
-
     document.getElementById("up_button").addEventListener("click", function(e) {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -613,10 +589,8 @@
         e.preventDefault();
         window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
     });
-
     window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
     let currentPlayingAudio = null;
-
     function initCanvas(canvas) {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -634,7 +608,6 @@
             ctx.fillRect(i * (meterWidth + gap), cheight, meterWidth, 2);
         }
     }
-
     document.querySelectorAll('.player').forEach(player => {
         const canvas = player.querySelector('canvas');
         const audio = player.querySelector('audio');
@@ -643,9 +616,7 @@
         let isInitialized = false;
         let prevWidth = canvas.clientWidth;
         let prevHeight = canvas.clientHeight;
-
         initCanvas(canvas);
-
         function renderFrame() {
             if (audio.paused || audio.ended) {
                 cancelAnimationFrame(animationFrameId);
@@ -655,7 +626,6 @@
                 }
                 return;
             }
-
             if (canvas.clientWidth !== prevWidth || canvas.clientHeight !== prevHeight) {
                 canvas.width = canvas.clientWidth;
                 canvas.height = canvas.clientHeight;
@@ -663,7 +633,6 @@
                 prevHeight = canvas.clientHeight;
                 capYPositionArray = [];
             }
-
             const canvasCtx = canvas.getContext('2d');
             const cwidth = canvas.width;
             const cheight = canvas.height;
@@ -672,7 +641,6 @@
             const frequencyData = new Uint8Array(analyser.frequencyBinCount);
             analyser.getByteFrequencyData(frequencyData);
             const step = Math.round(frequencyData.length / meterNum);
-
             canvasCtx.clearRect(0, 0, cwidth, cheight);
             const gradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
             gradient.addColorStop(1, '#000000'); // Black
@@ -680,7 +648,6 @@
             const capGradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
             capGradient.addColorStop(1, 'white');
             capGradient.addColorStop(0, '#eee');
-
             for (let i = 0; i < meterNum; i++) {
                 const value = frequencyData[i * step];
                 if (capYPositionArray.length < meterNum) {
@@ -699,7 +666,6 @@
             }
             animationFrameId = requestAnimationFrame(renderFrame);
         }
-
         function setupVisualization() {
             if (isInitialized) return;
             audioCtx = new AudioContext();
@@ -710,12 +676,10 @@
             analyser.fftSize = 256;
             isInitialized = true;
         }
-
         audio.onplay = () => {
             setupVisualization();
             renderFrame();
         };
-
         player.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
