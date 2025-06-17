@@ -48,6 +48,14 @@
             object-fit: cover;
         }
         @media (max-width: 800px) {
+            /* FIX: Reset banner positioning for all banners on mobile for stable layout */
+            .info-banner, .info-banner-2, .info-banner-3, .info-banner-4 {
+                position: static;
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
             .info-banner { flex-direction: column; padding: 5vh 5vw; }
             .info-text, .info-video { max-width: 90%; flex-basis: auto; }
             .info-video { margin-top: 25px; }
@@ -77,18 +85,14 @@
         .info-banner-3 { position: relative; left: 50%; margin-left: -50vw; width: 100vw; height: calc(100vh - 60vh - var(--header-height)); background: linear-gradient(135deg, rgba(200, 200, 200, 0.25), rgba(50, 50, 50, 0.25)); display: flex; justify-content: center; align-items: center; padding: 4vw; box-sizing: border-box; }
         .info-banner-3 .info-text { max-width: 90%; }
         .info-banner-4 { position: relative; left: 50%; margin-left: -50vw; width: 100vw; height: 60vh; background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25)); display: flex; justify-content: space-evenly; align-items: center; padding: 4vw; gap: 2vw; box-sizing: border-box; }
+        
         @media (max-width: 800px) and (orientation: portrait) {
             .info-banner-2 { height: var(--header-height) !important; }
             .info-banner-4 {
                 flex-direction: column-reverse; 
-                /* FIX: Reset positioning to ensure the banner stays in the normal document flow. */
-                /* This prevents it from overlapping with the grid below in portrait mode. */
-                position: static;
-                width: 100%;
-                margin-left: auto;
-                margin-right: auto;
             }
         }
+
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2vw; width: 100%; padding: 0 2vw; margin-top: 20px; min-width: 400px; min-height: calc(100vh - 140px); }
         @media (max-width: 480px) {
             .grid { grid-template-columns: 1fr; min-width: 0; }
@@ -190,8 +194,7 @@
             rightIconUrl: "tel:0636479969",
             audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
         },
-,
-        {
+                {
             image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
             text: "<b>Лабораторія товарознавчої експертизи</b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)</a></i>",
             url: "https://example.com/3",
