@@ -23,11 +23,11 @@
             .header-placeholder { width: 40px; }
             /* START: Modified rules for full-width icon alignment */
             .header-nav {
-                justify-content: space-around; /* Distribute icons evenly across the nav area */
+                justify-content: space-evenly; /* Distribute icons evenly, including space at the ends */
             }
             header a { 
                 font-size: 0; 
-                margin: 0 2px; /* Set a minimal margin, as space-around handles spacing */
+                margin: 0; /* Let space-evenly handle all horizontal spacing */
             }
             /* END: Modified rules */
             header a:hover { font-size: 0; }
