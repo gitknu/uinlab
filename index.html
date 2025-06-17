@@ -17,20 +17,17 @@
         header a { margin: 0 20px; transition: all 0.3s ease; }
         header a:hover { font-weight: bold; font-size: 1.4rem; }
         .page-title { font-family: "Montserrat", sans-serif; font-weight: 800; color: grey; opacity: 0.75; text-align: center; text-shadow: 0 0 2px white, 0 0 5px white; font-size: clamp(1.8rem, 5vw, 3rem); margin: 20px 0; padding: 0 20px; }
-        
         @media (orientation: portrait) {
             .header-icon { height: 40px; }
             .header-placeholder { width: 40px; }
-            /* START: Modified rules for full-width icon alignment */
             .header-nav {
                 justify-content: space-between; /* Distribute icons across the full width */
                 margin-left: 20px; /* Add space between logo and nav menu */
             }
             header a { 
                 font-size: 0; 
-                margin: 0; /* Let space-between handle all horizontal spacing */
+                margin: 0; 
             }
-            /* END: Modified rules */
             header a:hover { font-size: 0; }
             header a::before { content: ""; display: block; width: 25px; height: 25px; background-size: contain; background-repeat: no-repeat; }
             header a:nth-child(1)::before { background-image: url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png'); }
@@ -39,30 +36,22 @@
             header a:nth-child(4)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png'); }
             header a:nth-child(5)::before { background-image: url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png'); }
         }
-
         .info-banner { position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; width: 100vw; min-height: 50vh; height: auto; background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25)); display: flex; justify-content: space-evenly; align-items: center; padding: 4vw; gap: 2vw; }
         .info-text { flex: 1 1 500px; text-align: center; max-width: 45%; }
         .info-banner p, .info-banner-3 p, .info-banner-4 p { font-size: clamp(1.05rem, 3vmin, 2.05rem); color: #333; font-weight: 400; text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.5); padding: 0; width: 100%; box-sizing: border-box; max-width: 100%; }
         .info-video { flex: 1 1 500px; max-width: 45%; aspect-ratio: 16 / 9; width: 100%; }
         .info-video iframe { width: 100%; height: 100%; border-radius: 15px; border: none; }
-        
-        /* START: Style for new video element */
         .info-video video {
             width: 100%;
             height: 100%;
             border-radius: 15px;
             object-fit: cover;
         }
-        /* END: Style for new video element */
-
         @media (max-width: 800px) {
             .info-banner { flex-direction: column; padding: 5vh 5vw; }
             .info-text, .info-video { max-width: 90%; flex-basis: auto; }
             .info-video { margin-top: 25px; }
-            
             .info-banner-2 { height: var(--header-height) !important; }
-            
-            /* START: Modified rules for banners */
             .info-banner-3 { height: auto; min-height: 40vh; flex-direction: column; padding: 5vh 5vw; }
             .info-banner-4 {
                 height: auto;
@@ -83,32 +72,25 @@
                 max-width: 100%;
                 padding: 5vh 5vw;
             }
-            /* END: Modified rules for banners */
         }
-        
         .info-banner-2 { height: var(--header-height); width: 100vw; position: relative; left: 50%; margin-left: -50vw; }
         .info-banner-3 { position: relative; left: 50%; margin-left: -50vw; width: 100vw; height: calc(100vh - 60vh - var(--header-height)); background: linear-gradient(135deg, rgba(200, 200, 200, 0.25), rgba(50, 50, 50, 0.25)); display: flex; justify-content: center; align-items: center; padding: 4vw; box-sizing: border-box; }
         .info-banner-3 .info-text { max-width: 90%; }
         .info-banner-4 { position: relative; left: 50%; margin-left: -50vw; width: 100vw; height: 60vh; background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25)); display: flex; justify-content: space-evenly; align-items: center; padding: 4vw; gap: 2vw; box-sizing: border-box; }
-        
         @media (max-width: 800px) and (orientation: portrait) {
             .info-banner-2 { height: var(--header-height) !important; }
             .info-banner-4 {
-                flex-direction: column-reverse; /* Show text above video on mobile */
+                flex-direction: column-reverse; 
             }
         }
-        
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2vw; width: 100%; padding: 0 2vw; margin-top: 20px; min-width: 400px; min-height: calc(100vh - 140px); }
-        
         @media (max-width: 480px) {
             .grid { grid-template-columns: 1fr; min-width: 0; }
         }
-        
         .rectangle { background-color: rgba(253, 225, 197, 1); width: 100%; display: flex; flex-direction: column; justify-content: flex-start; position: relative; border-radius: 10px; overflow: hidden; transition: height 0.3s ease-in-out; padding-bottom: 50%; }
         .rectangle-glow, .rectangle-info { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px; z-index: 0; }
         .rectangle-info::before, .rectangle-glow::before { content: ''; position: absolute; z-index: -2; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg); width: 99999px; height: 99999px; background-image: conic-gradient(rgba(0,0,0,0), #1976ed, rgba(0,0,0,0) 25%); animation: rotate 4s linear infinite; opacity: 0; }
         .rectangle-info::after { content: ''; position: absolute; z-index: -1; left: 5px; top: 5px; width: calc(100% - 10px); height: calc(100% - 10px); background: rgba(253, 225, 197, 1); border-radius: 7px; }
-        
         @keyframes rotate { 100% { transform: translate(-50%, -50%) rotate(1turn); } }
         .rectangle:hover .rectangle-glow::before { opacity: 1; }
         .image-container { width: 80%; height: 0; padding-top: 80%; position: relative; margin: 10% auto 0; overflow: hidden; transition: opacity 0.5s ease-in-out; }
@@ -128,14 +110,12 @@
         #up_button { bottom: 100px; }
         #down_button { bottom: 20px; }
         .button_icon { height: 45px; transition: all 0.4s ease-in-out; }
-        
         @media (max-width: 1367px) and (orientation: portrait){
             #up_button, #down_button { width: 75px; height: 75px; }
             #up_button { bottom: 100px; }
             .button_icon { height: 50px; }
             .player { bottom: 105px; height: 70px; left: 5%; width: 85%; }
         }
-        
         @media (hover: hover) and (min-width: 768px) {
             header:has(.header-nav a:hover) { padding-top: 17px; padding-bottom: 17px; }
         }
@@ -168,7 +148,6 @@
            <iframe src="https://www.youtube.com/embed/r8OipmKFDeM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
      </div>
-   <!-- START: Added Banners HTML -->
    <div class="info-banner-2"></div>
    <div class="info-banner-3">
      <div class="info-text">
@@ -176,11 +155,9 @@
      </div>
    </div>
    <div class="info-banner-4">
-    <!-- START: Replaced iframe with video -->
      <div class="info-video">
         <video id="ckkno-video" autoplay muted controls loop playsinline></video>
      </div>
-    <!-- END: Replaced iframe with video -->
       <div class="info-text">
          <p>Маєш інноваційну ідею або продукт? Потрібно розробити або протестувати MVP
 (мінімально життєздатний продукт)? Звертайся до лабораторій і Центрів
@@ -407,35 +384,28 @@
         document.body.style.paddingTop = `${headerHeight}px`;
         document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
     };
-
-    // START: Function to update custom video source
     const updateCkknoVideoSource = () => {
         const video = document.getElementById('ckkno-video');
         if (!video) return;
-
         const isPortrait = window.innerHeight > window.innerWidth;
         const landscapeSrc = "https://gitknu.github.io/uinlab/ckkno_horiz.mp4";
         const portraitSrc = "https://gitknu.github.io/uinlab/ckkno_vert.mp4";
         const newSrc = isPortrait ? portraitSrc : landscapeSrc;
-
-        // Check if the source needs to be changed to prevent unnecessary reloads
         if (!video.currentSrc || !video.currentSrc.endsWith(newSrc.split('/').pop())) {
             video.src = newSrc;
             video.load();
             video.play().catch(error => console.log("Autoplay was prevented:", error));
         }
     };
-    // END: Function to update custom video source
-
     window.onload = () => {
         adjustLayout();
         adjustHeight();
-        updateCkknoVideoSource(); // Set initial video source
+        updateCkknoVideoSource(); 
     };
     window.onresize = () => {
         adjustLayout();
         adjustHeight();
-        updateCkknoVideoSource(); // Update video source on resize/orientation change
+        updateCkknoVideoSource(); 
     };
     document.getElementById("up_button").addEventListener("click", function(e) {
         e.preventDefault();
