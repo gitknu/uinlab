@@ -71,9 +71,10 @@
             }
             .info-banner-4 .info-video {
                 max-width: 100%;
+                width: 100%;
                 margin-top: 0;
-                height: calc(100vh - var(--header-height));
-                aspect-ratio: auto;
+                height: auto;
+                aspect-ratio: 9 / 16;
             }
             .info-banner-4 .info-video video {
                 border-radius: 0;
@@ -90,8 +91,11 @@
         .info-banner-3 .info-text { max-width: 90%; }
         .info-banner-4 { position: relative; left: 50%; margin-left: -50vw; width: 100vw; height: 60vh; background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25)); display: flex; justify-content: space-evenly; align-items: center; padding: 4vw; gap: 2vw; box-sizing: border-box; }
         
-        @media (max-width: 800px) {
+        @media (max-width: 800px) and (orientation: portrait) {
             .info-banner-2 { height: var(--header-height) !important; }
+            .info-banner-4 {
+                flex-direction: column-reverse; /* Show text above video on mobile */
+            }
         }
         
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2vw; width: 100%; padding: 0 2vw; margin-top: 20px; min-width: 400px; min-height: calc(100vh - 140px); }
@@ -174,7 +178,7 @@
    <div class="info-banner-4">
     <!-- START: Replaced iframe with video -->
      <div class="info-video">
-        <video id="ckkno-video" controls loop playsinline></video>
+        <video id="ckkno-video" autoplay controls loop playsinline></video>
      </div>
     <!-- END: Replaced iframe with video -->
       <div class="info-text">
