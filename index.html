@@ -17,18 +17,14 @@
         header a { margin: 0 20px; transition: all 0.3s ease; }
         header a:hover { font-weight: bold; font-size: 1.4rem; }
         .page-title { font-family: "Montserrat", sans-serif; font-weight: 800; color: grey; opacity: 0.75; text-align: center; text-shadow: 0 0 2px white, 0 0 5px white; font-size: clamp(1.8rem, 5vw, 3rem); margin: 20px 0; padding: 0 20px; }
-        
-        /* Mobile header styles */
         @media (orientation: portrait) {
             .header-icon { height: 40px; }
             .header-placeholder { width: 40px; }
             .header-nav {
-                justify-content: space-between;
-                margin-left: 20px;
+                justify-content: space-between; margin-left: 20px;
             }
             header a { 
-                font-size: 0; 
-                margin: 0; 
+                font-size: 0; margin: 0; 
             }
             header a:hover { font-size: 0; }
             header a::before { content: ""; display: block; width: 25px; height: 25px; background-size: contain; background-repeat: no-repeat; }
@@ -38,13 +34,8 @@
             header a:nth-child(4)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png'); }
             header a:nth-child(5)::before { background-image: url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png'); }
         }
-
-        /* --- MOBILE-FIRST BANNER STYLES --- */
-        /* Default styles for banners (mobile) */
         .info-banner, .info-banner-2, .info-banner-3, .info-banner-4 {
-            width: 100%;
-            height: auto;
-            display: flex;
+            width: 100%; height: auto; display: flex;
             align-items: center;
             box-sizing: border-box;
         }
@@ -71,45 +62,29 @@
 
         .info-banner-4 {
             background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25));
-            padding: 0;
-            flex-direction: column;
+            padding: 0; flex-direction: column;
         }
 
         .info-text {
-            text-align: center;
-            max-width: 90%;
-            flex-basis: auto;
+            text-align: center; max-width: 90%; flex-basis: auto;
         }
         
         .info-banner p, .info-banner-3 p, .info-banner-4 p {
             font-size: clamp(1.05rem, 3vmin, 2.05rem);
-            color: #333;
-            font-weight: 400;
             text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.5);
-            padding: 0;
-            width: 100%;
+            padding: 0; color: #333; font-weight: 400; width: 100%;
         }
 
         .info-video {
-            max-width: 90%;
-            flex-basis: auto;
-            width: 100%;
-            margin-top: 25px;
-            aspect-ratio: 16 / 9;
+            max-width: 90%; flex-basis: auto; width: 100%; margin-top: 25px; aspect-ratio: 16 / 9;
         }
         
         .info-video iframe, .info-video video {
-            width: 100%;
-            height: 100%;
-            border-radius: 15px;
-            border: none;
-            object-fit: cover;
+            width: 100%; height: 100%; border-radius: 15px; border: none; object-fit: cover;
         }
 
         .info-banner-4 .info-video {
-            max-width: 100%;
-            margin-top: 0;
-            aspect-ratio: 9 / 16;
+            max-width: 100%; margin-top: 0; aspect-ratio: 9 / 16;
         }
 
         .info-banner-4 .info-video video {
@@ -117,8 +92,7 @@
         }
 
         .info-banner-4 .info-text {
-            max-width: 100%;
-            padding: 5vh 5vw;
+            max-width: 100%; padding: 5vh 5vw;
         }
         
         @media (max-width: 800px) and (orientation: portrait) {
@@ -126,44 +100,26 @@
                 flex-direction: column-reverse; 
             }
         }
-        
-        /* --- DESKTOP OVERRIDES --- */
         @media (min-width: 801px) {
-            /* Re-introduce full-bleed styles for desktop */
             .info-banner, .info-banner-2, .info-banner-3, .info-banner-4 {
-                position: relative;
-                left: 50%;
-                right: 50%;
-                margin-left: -50vw;
-                margin-right: -50vw;
-                width: 100vw;
+                position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; width: 100vw;
             }
-
-            /* Revert to desktop layouts */
             .info-banner {
-                flex-direction: row;
-                min-height: 50vh;
-                padding: 4vw;
+                flex-direction: row; min-height: 50vh; padding: 4vw;
             }
             .info-text { max-width: 45%; }
             .info-video { max-width: 45%; aspect-ratio: 16 / 9; margin-top: 0; }
-            
             .info-banner-2 { height: var(--header-height); }
             .info-banner-3 { height: calc(100vh - 60vh - var(--header-height)); padding: 4vw; }
-            
             .info-banner-4 {
-                height: 60vh;
-                padding: 4vw;
-                flex-direction: row;
+                height: 60vh; padding: 4vw; flex-direction: row;
             }
              .info-banner-4 .info-video {
-                max-width: 45%;
-                aspect-ratio: 16 / 9;
+                max-width: 45%; aspect-ratio: 16 / 9;
              }
              .info-banner-4 .info-video video { border-radius: 15px; }
              .info-banner-4 .info-text { max-width: 45%; }
         }
-
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2vw; width: 100%; padding: 0 2vw; margin-top: 20px; min-width: 400px; min-height: calc(100vh - 140px); }
         @media (max-width: 480px) {
             .grid { grid-template-columns: 1fr; min-width: 0; }
@@ -334,13 +290,6 @@
             url: "http://science.knu.ua",
             rightIconUrl: "tel:044000000",
             audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
-        },
-        {
-            image: "https://lh3.googleusercontent.com/d/16pfNqHPmYLuz-zVTYdmpfG8O-rnNFnnH",
-            text: "<b>Рада молодих вчених<br><br></b><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscin.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
-            url: "http://rmn.knu.ua/",
-            rightIconUrl: "tel:044000000",
-            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
         }
     ];
     const grid = document.getElementById("grid");
