@@ -1,0 +1,661 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNUnicorn</title>
+<link rel="icon" href="https://gitknu.github.io/uinlab/icon_knunicorn.svg" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        :root {
+            --header-height: 110px;
+            --card-bg-default: #fde1c5;
+            --card-bg-lab: #dbeafe;
+            --card-bg-business: #d1fae5;  
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #fff9f8, #fda95d) fixed;
+            font-family: "Montserrat", sans-serif;
+            overflow-x: hidden;
+            line-height: 1.05;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            z-index: 9999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            transition: padding 0.4s ease;
+        }
+        .header-icon { height: 80px; }
+        .header-nav { display: flex; justify-content: center; flex-grow: 1; }
+        .header-placeholder { width: 50px; }
+        header a { margin: 0 20px; }
+        header a:hover { font-weight: bold; font-size: 1.4rem; }
+        .page-title {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 800;
+            color: grey;
+            opacity: 0.75;
+            text-align: center;
+            text-shadow: 0 0 2px white, 0 0 5px white;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        .info-banner, .info-banner-2, .info-banner-3, .info-banner-4 {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .info-banner, .info-banner-4 {
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.25), rgba(10, 10, 10, 0.25));
+            flex-direction: column;
+        }
+        .info-banner {
+            justify-content: space-evenly;
+            padding: 5vh 5vw;
+            gap: 2vw;
+        }
+        .info-banner-2 { height: var(--header-height); }
+        .info-banner-3 {
+            background: linear-gradient(135deg, rgba(200, 200, 200, 0.25), rgba(50, 50, 50, 0.25));
+            justify-content: center;
+            padding: 5vh 5vw;
+            min-height: 40vh;
+        }
+        .info-banner-4 { padding: 0; }
+        .info-text { text-align: center; max-width: 90%; }
+        .info-banner-3 .info-text { max-width: 90%; }
+        .info-banner p, .info-banner-3 p, .info-banner-4 p {
+            font-size: clamp(1.05rem, 3vmin, 2.05rem);
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+            color: #333;
+            font-weight: 400;
+        }
+        .info-video { max-width: 90%; width: 100%; margin-top: 25px; aspect-ratio: 16 / 9; }
+        .info-video iframe, .info-video video { width: 100%; height: 100%; border-radius: 15px; border: none; object-fit: cover; }
+        .info-banner-4 .info-video { max-width: 100%; margin-top: 0; aspect-ratio: 9 / 16; }
+        .info-banner-4 .info-video video { border-radius: 0; }
+        .info-banner-4 .info-text { max-width: 100%; padding: 5vh 5vw; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2vw;
+            width: 100%;
+            padding: 0 2vw;
+            margin-top: 20px;
+            min-height: calc(100vh - 140px);
+        }
+        .rectangle {
+            background-color: var(--card-bg, var(--card-bg-default));
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            padding-bottom: 50%;
+        }
+        .rectangle.group-lab { --card-bg: var(--card-bg-lab); }
+        .rectangle.group-business { --card-bg: var(--card-bg-business); }
+        .rectangle-glow, .rectangle-info {
+            position: absolute;
+            inset: 0;
+            border-radius: 10px;
+            z-index: 0;
+        }
+        .rectangle-info::before, .rectangle-glow::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 99999px;
+            height: 99999px;
+            background-image: conic-gradient(transparent, #1976ed, transparent 25%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+        }
+        .rectangle-info::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: 5px;
+            background: var(--card-bg, var(--card-bg-default));
+            border-radius: 7px;
+        }
+        @keyframes rotate { to { transform: translate(-50%, -50%) rotate(1turn); } }
+        .rectangle:hover .rectangle-glow::before { opacity: 1; }
+        .image-container {
+            width: 55%;
+            padding-top: 55%;
+            position: relative;
+            margin: 10% auto 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .image-container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: opacity 0.5s ease-in-out;
+            border-radius: 25px;
+        }
+        .rectangle .text { width: 80%; margin: 5% auto; color: #333; font-size: clamp(16px, 2vw, 0.9rem); z-index: 1; }
+        .rectangle .text b { display: block; text-align: center; font-weight: bold; font-size: 1.1rem; }
+        .rectangle .text a { display: block; text-align: right; margin-top: 32px; }
+        .rectangle .text p { margin: 10px 0; }
+        .player {
+            position: absolute;
+            bottom: 70px;
+            left: 10%;
+            width: 80%;
+            height: 40px;
+            z-index: 2;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .player canvas { width: 100%; height: 100%; display: block; }
+        .rectangle .icons { display: flex; justify-content: space-around; position: absolute; bottom: 16px; width: 100%; z-index: 1; }
+        .rectangle .icons a { width: 20%; padding-top: 20%; position: relative; }
+        .rectangle .icons a img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        #up_button, #down_button {
+            position: fixed;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            background-color: #fdc592;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 3px 4px black;
+            opacity: 0.7;
+            transition: all 0.4s ease-in-out;
+            z-index: 999;
+        }
+        #up_button:hover, #down_button:hover {
+            width: 65px;
+            height: 65px;
+            box-shadow: 1px 1px 2px black;
+        }
+        #up_button:hover .button_icon, #down_button:hover .button_icon { transform: scale(0.95); }
+        #up_button { bottom: 100px; }
+        #down_button { bottom: 20px; }
+        .button_icon { height: 45px; transition: all 0.4s ease-in-out; }
+        .video-wrapper { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 15px; 
+            overflow: hidden; 
+        }
+        .video-wrapper video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .custom-controls {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+        .video-wrapper:hover .custom-controls { opacity: 1; }
+        #volume-slider { cursor: pointer; }
+        @media (orientation: portrait) {
+            .header-icon { height: 40px; }
+            .header-placeholder { width: 40px; }
+            .header-nav { justify-content: space-between; margin-left: 20px; }
+            header a { font-size: 0; margin: 0; }
+            header a:hover { font-size: 0; } 
+            header a::before { content: ""; display: block; width: 25px; height: 25px; background-size: contain; background-repeat: no-repeat; }
+            header a:nth-child(1)::before { background-image: url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png'); }
+            header a:nth-child(2)::before { background-image: url('https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/512/save-icon.png'); }
+            header a:nth-child(3)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Book-Reference-icon.png'); }
+            header a:nth-child(4)::before { background-image: url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png'); }
+            header a:nth-child(5)::before { background-image: url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png'); }
+            .info-banner-4 {
+                padding: 5vh 5vw;
+            }
+            .info-banner-4 .info-video video {
+                border-radius: 15px;
+            }
+        }
+        @media (max-width: 800px) and (orientation: portrait) {
+            .info-banner-4 { flex-direction: column-reverse; }
+        }
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; min-width: 0; }
+        }
+        @media (max-width: 1367px) and (orientation: portrait){
+            #up_button, #down_button { width: 75px; height: 75px; }
+            .button_icon { height: 50px; }
+            .player { bottom: 105px; height: 70px; left: 5%; width: 85%; }
+        }
+        @media (min-width: 801px) {
+            .info-banner, .info-banner-2, .info-banner-3, .info-banner-4 {
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100vw;
+            }
+            .info-banner { flex-direction: row; min-height: 50vh; padding: 4vw; }
+            .info-text { max-width: 45%; }
+            .info-video { max-width: 45%; margin-top: 0; }
+            .info-banner-3 { min-height: auto; height: calc(40vh - var(--header-height)); padding: 4vw; }
+            .info-banner-4 { height: 60vh; padding: 4vw; flex-direction: row; }
+            .info-banner-4 .info-video { max-width: 45%; aspect-ratio: 16 / 9; }
+            .info-banner-4 .info-video video { border-radius: 15px; }
+        }
+        @media (hover: hover) and (min-width: 768px) {
+            header:has(.header-nav a:hover) { padding: 17px 20px; }
+        }
+    </style>
+</head>
+<body>
+   <a href="#header_page" id="up_button" style="display: flex; justify-content: center; align-items: center;">
+     <img class="button_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-up-drop-circle-outline-icon.png" alt="⬆" />
+   </a>
+   <a href="#footer_page" id="down_button">
+     <img class="button_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-down-drop-circle-outline-icon.png" alt="⬇" />
+   </a>
+     <header>
+         <img class="header-icon" src="https://gitknu.github.io/uinlab/icon_knunicorn.svg" alt="UInLab Icon">
+         <nav class="header-nav">
+           <a href="https://whatsapp.com/channel/0029VbBKT3w9xVJauBju183i" target="_blank">Новини</a>
+           <a href="https://drive.google.com" target="_blank">Файли</a>
+           <a href="#">Деталі</a>
+           <a href="#">Інше</a>
+           <a href="#">Контакти</a>
+         </nav>
+         <div class="header-placeholder"></div>
+     </header>
+     <div class="page-title">Віртуальний інноваційний хаб KNUnicorn</div>
+     <div class="info-banner">
+       <div class="info-text">
+           <p>Віртуальний простір, який об'єднує інноваторів, учених, підприємців та інвесторів з різних країн для співпраці над інноваційними проєктами та ідеями, обміну знаннями, пошуку рішень складних проблем, розвитку молодіжного новаторства, імплементації технологічних рішень для розвитку економіки</p>
+       </div>
+        <div class="info-video">
+           <iframe src="https://www.youtube.com/embed/r8OipmKFDeM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+     </div>
+   <div class="info-banner-2"></div>
+   <div class="info-banner-3">
+     <div class="info-text">
+       <p><i><b>Місія</b></i> — забезпечення зацікавлених стейкхолдерів ресурсами, необхідними для розробки інноваційних ідей і технологій, підтримка молодіжних стартапів, підприємців, започаткування високотехнологічних компаній, розвиток нетворкінгу та ін.</p>
+     </div>
+   </div>
+   <div class="info-banner-4">
+     <div class="info-video">
+        <div class="video-wrapper">
+          <video id="ckkno-video" autoplay muted loop playsinline></video>
+          <div class="custom-controls">
+            <input id="volume-slider" type="range" min="0" max="1" step="0.05" value="0" oninput="
+              const video = document.getElementById('ckkno-video');
+              video.volume = this.value;
+              video.muted = this.value == 0;
+            ">
+          </div>
+        </div>
+     </div>
+      <div class="info-text">
+          <p>Маєш інноваційну ідею або продукт? Потрібно розробити або протестувати MVP
+(мінімально життєздатний продукт)? Звертайся до лабораторій і Центрів
+колективного користування науковим обладнанням КНУ ім. Тараса Шевченка (ЦККНО)</p>
+<br><br>
+<p>У ЦККНО студенти, аспіранти, незалежні дослідники та представники бізнесу можуть використати унікальне наукове обладнання для проведення наукових досліджень та науково-технічних розробок</p>
+      </div>
+   </div>
+     <div class="grid" id="grid"></div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+<script>
+    const rectanglesData = [
+        {
+            group: "lab",
+            image: "https://lh3.googleusercontent.com/d/1vRPV0LR_eGMVKwb0T_4BHXPOziLgxNH9",
+            text: "<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки допоможе втілити інженерний задум.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 20)</a></i>",
+            url: "http://fb.com/groups/416391268735797",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Доступ до баз наземних і космічних обсерваторій. Допомога в роботі з результатами спостережень.</p><i><a href=\"https://www.google.com/maps\">Обсерваторна, 3<br>(обсерваторія, к. 17)</a></i>",
+            url: "http://virgoua.org",
+            rightIconUrl: "tel:0445264457",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/13n1BnfjEmFkucMoAvHaTF6hn8tRg8QPv",
+            text: "<b>ЦККНО<br>НДТБМ<br><br></b><p>Люмінесцентний, фотометричний та ІЧ-спектральний аналіз. Дослідження клітинних культур, наночастинок та біомолекул.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 227)</a></i>",
+            url: "http://ccouse.knu.ua",
+            rightIconUrl: "tel:0445213235",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>ЦККНО<br>СТДР<br><br></b><p>Дослідження складу, структури та властивостей гірських порід, руд, продуктів їхньої переробки та багато іншого.</p><i><a href=\"https://www.google.com/maps\">Васильківська, 90А<br>(к. 443)</a></i>",
+            url: "http://geo.ccouse.knu.ua",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Лабораторія товарознавчої експертизи</b><p>Експертиза товарів, а саме - оцінка якості, виявлення фальсифікату, перевірка для імпорту або експорту.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)</a></i>",
+            url: "https://example.com/3",
+            rightIconUrl: "tel:0445313329",
+            audioSrc: "https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"
+        },
+        {
+            group: "business",
+            image: "https://lh3.googleusercontent.com/d/1HaIJ-qBk5NndQVwA48lZ4Z1ys3nGw4Qh",
+            text: "<b>Дія.Бізнес / Diia.Business<br><br></b><p>Безкоштовні воркшопи, вебінари, лекції, консультації від провідних експертів. Pop-up локація, коворкінг. </p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",
+            url: "http://diia-business-knu.com",
+            rightIconUrl: "tel:0635461848",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1lBW1KML8N4RJP776NEdcABso0fDgplWV",
+            text: "<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Це твій особистий для роботи, нетворкінгу та саморозвитку!</p><i><a href=\"https://maps.app.goo.gl/fpYteGmxhHfNraZx8\">просп. Глушкова, 4Г<br>(каб. 999)</a></i>",
+            url: "https://lunoteka.knu.ua",
+            rightIconUrl: "tel:0636479969",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC",
+            text: "<b>Бізнес-школа / Business School<br><br></b><p>Річна програма для формування прикладних навичок підприємництва, створення і розвитку стартапів.</p><i><a href=\"https://www.google.com/maps\">Володимирська, 58<br>(бібліотека, ауд. 31А)</a></i>",
+            url: "https://example.com/14",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Школа лідерства / The School for Future Leaders</b><p>Програма для формування лідерських якостей у молоді: розробка і презентація від ідеї до бізнесу, робота у команді, кризовий менеджмент тощо.</p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",
+            url: "http://instagr.am/sfl_econom_knu",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Young Innovation Hackathon / Всеукраїнський Фестиваль Інновацій</b><p>Щорічний фестиваль, де інноватори з усієї України презентують ідеї, спілкуються з інвесторами, формують команди.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://linktr.ee/business_school_knu",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        },
+        {
+            image: "https://gitknu.github.io/uinlab/transp_science_park.png",
+            text: "<b>Науковий парк / Science Park<br><br></b><br><p>Фаховий аудит, фінансово-економічний супровід проєктів, комунікація з інвесторами та фондами.</p><i><a href=\"https://maps.app.goo.gl/j2tLYgF25Q2KZSx69\">Володимирська, 60<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://scp.knu.ua",
+            rightIconUrl: "tel:0442393468",
+            audioSrc: "https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"
+        },
+        {
+            image: "https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",
+            text: "<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Підкажуть актуальні теми досліджень, наукові та грантові конкурси, конференції та інші наукові заходи, події.</p><i><a href=\"https://maps.app.goo.gl/rTunRwwEwteYbuHX7\">Скоропадського, 14А<br>(НОМЕР КАБІНЕТУ)</a></i>",
+            url: "http://science.knu.ua",
+            rightIconUrl: "tel:044000000",
+            audioSrc: "https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"
+        }
+    ];
+    const grid = document.getElementById("grid");
+    const header = document.querySelector('header');
+    const createIcon = (url, src) => {
+        const a = document.createElement("a");
+        a.href = url;
+        const img = document.createElement("img");
+        img.src = src;
+        a.appendChild(img);
+        return a;
+    };
+    const createRectangle = (data) => {
+        const rectangleWrapper = document.createElement("a");
+        rectangleWrapper.href = data.url;
+        rectangleWrapper.target = "_blank";
+        const rectangle = document.createElement("div");
+        rectangle.classList.add("rectangle");
+        if (data.group) {
+            rectangle.classList.add(`group-${data.group}`);
+        }
+        const glow = document.createElement("div");
+        glow.classList.add("rectangle-glow");
+        const info = document.createElement("div");
+        info.classList.add("rectangle-info");
+        const imageContainer = document.createElement("div");
+        imageContainer.classList.add("image-container");
+        const img = document.createElement("img");
+        img.src = data.image;
+        img.alt = `Image for ${data.text.match(/<b>(.*?)<\/b>/)[1]}`;
+        imageContainer.appendChild(img);
+        const textDiv = document.createElement("div");
+        textDiv.classList.add("text");
+        textDiv.innerHTML = data.text;
+        const playerDiv = document.createElement('div');
+        playerDiv.className = 'player';
+        const canvas = document.createElement('canvas');
+        canvas.className = 'visualizer';
+        const audio = document.createElement('audio');
+        audio.src = data.audioSrc;
+        audio.crossOrigin = "anonymous";
+        playerDiv.appendChild(canvas);
+        playerDiv.appendChild(audio);
+        const iconsDiv = document.createElement("div");
+        iconsDiv.classList.add("icons");
+        const toggleQrCode = (imgContainer, originalSrc, qrContent) => {
+            const currentImage = imgContainer.querySelector("img");
+            const isShowingOriginal = !currentImage.src.startsWith('data:image');
+            imgContainer.style.opacity = 0;
+            setTimeout(() => {
+                if (isShowingOriginal) {
+                    QRCode.toDataURL(qrContent, { width: 150, height: 150 }, (err, url) => {
+                        if (err) { console.error(err); return; }
+                        currentImage.src = url;
+                        imgContainer.style.opacity = 1;
+                    });
+                } else {
+                    currentImage.src = originalSrc;
+                    imgContainer.style.opacity = 1;
+                }
+            }, 500);
+        };
+        const leftIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Ecommerce-Qr-Code-icon.png");
+        leftIcon.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleQrCode(imageContainer, data.image, data.url);
+        });
+        const rightIcon = createIcon("javascript:void(0)", "https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");
+        rightIcon.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (window.innerWidth <= window.innerHeight) {
+                window.location.href = data.rightIconUrl;
+            } else { 
+                toggleQrCode(imageContainer, data.image, data.rightIconUrl);
+            }
+        });
+        iconsDiv.appendChild(leftIcon);
+        iconsDiv.appendChild(rightIcon);
+        rectangle.append(glow, info, imageContainer, textDiv, playerDiv, iconsDiv);
+        rectangleWrapper.appendChild(rectangle);
+        return rectangleWrapper;
+    };
+    const rectangles = rectanglesData.map((data) => {
+        const rectangleWrapper = createRectangle(data);
+        grid.appendChild(rectangleWrapper);
+        return rectangleWrapper;
+    });
+    const adjustHeight = () => {
+        const maxHeight = Math.max(...rectangles.map(r => r.offsetHeight));
+        rectangles.forEach(r => r.style.height = `${maxHeight}px`);
+    };
+    const adjustLayout = () => {
+        const headerHeight = header.offsetHeight;
+        document.body.style.paddingTop = `${headerHeight}px`;
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    };
+    const updateCkknoVideoSource = () => {
+        const video = document.getElementById('ckkno-video');
+        if (!video) return;
+        const isPortrait = window.innerHeight > window.innerWidth;
+        const newSrc = isPortrait ? "https://gitknu.github.io/uinlab/ckkno_vert.mp4" : "https://gitknu.github.io/uinlab/ckkno_horiz.mp4";
+        if (!video.currentSrc || !video.currentSrc.endsWith(newSrc.split('/').pop())) {
+            video.src = newSrc;
+            video.load();
+            video.play().catch(error => console.log("Autoplay was prevented:", error));
+        }
+    };
+    const runAdjustments = () => {
+        adjustLayout();
+        adjustHeight();
+        updateCkknoVideoSource();
+    };
+    window.onload = runAdjustments;
+    window.onresize = runAdjustments;
+    document.getElementById("up_button").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("down_button").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    });
+    window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+    let currentPlayingAudio = null;
+    function initCanvas(canvas) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+        const ctx = canvas.getContext('2d');
+        const cwidth = canvas.width;
+        const cheight = canvas.height - 2;
+        const meterWidth = 10, gap = 2;
+        const meterNum = Math.floor(cwidth / (meterWidth + gap));
+        const gradient = ctx.createLinearGradient(0, 0, 0, cheight);
+        gradient.addColorStop(1, '#000000');
+        gradient.addColorStop(0, '#0072ff');
+        ctx.clearRect(0, 0, cwidth, canvas.height);
+        for (let i = 0; i < meterNum; i++) {
+            ctx.fillStyle = gradient;
+            ctx.fillRect(i * (meterWidth + gap), cheight, meterWidth, 2);
+        }
+    }
+    document.querySelectorAll('.player').forEach(player => {
+        const canvas = player.querySelector('canvas');
+        const audio = player.querySelector('audio');
+        let audioCtx, analyser, animationFrameId;
+        let capYPositionArray = [];
+        let isInitialized = false;
+        initCanvas(canvas);
+        function renderFrame() {
+            if (audio.paused || audio.ended) {
+                cancelAnimationFrame(animationFrameId);
+                initCanvas(canvas);
+                if (audio.ended) { currentPlayingAudio = null; }
+                return;
+            }
+            if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                capYPositionArray = []; 
+            }
+            const canvasCtx = canvas.getContext('2d');
+            const cwidth = canvas.width;
+            const cheight = canvas.height;
+            const meterWidth = 5, gap = 2, capHeight = 2;
+            const meterNum = Math.floor(cwidth / (meterWidth + gap));
+            const frequencyData = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(frequencyData);
+            const step = Math.round(frequencyData.length / meterNum);
+            canvasCtx.clearRect(0, 0, cwidth, cheight);
+            const gradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
+            gradient.addColorStop(1, '#000000');
+            gradient.addColorStop(0, '#0072ff');
+            const capGradient = canvasCtx.createLinearGradient(0, 0, 0, cheight);
+            capGradient.addColorStop(1, 'white');
+            capGradient.addColorStop(0, '#eee');
+            for (let i = 0; i < meterNum; i++) {
+                const value = frequencyData[i * step];
+                if (capYPositionArray.length < meterNum) {
+                    capYPositionArray.push(value);
+                }
+                canvasCtx.fillStyle = capGradient;
+                if (value < capYPositionArray[i]) {
+                    canvasCtx.fillRect(i * (meterWidth + gap), cheight - (--capYPositionArray[i]), meterWidth, capHeight);
+                } else {
+                    canvasCtx.fillRect(i * (meterWidth + gap), cheight - value, meterWidth, capHeight);
+                    capYPositionArray[i] = value;
+                }
+                canvasCtx.fillStyle = gradient;
+                const barHeight = value * (cheight / 255);
+                canvasCtx.fillRect(i * (meterWidth + gap), cheight - barHeight, meterWidth, barHeight);
+            }
+            animationFrameId = requestAnimationFrame(renderFrame);
+        }
+        function setupVisualization() {
+            if (isInitialized) return;
+            audioCtx = new AudioContext();
+            analyser = audioCtx.createAnalyser();
+            const source = audioCtx.createMediaElementSource(audio);
+            source.connect(analyser);
+            analyser.connect(audioCtx.destination);
+            analyser.fftSize = 256;
+            isInitialized = true;
+        }
+        audio.onplay = () => {
+            setupVisualization();
+            renderFrame();
+        };
+        player.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (currentPlayingAudio && currentPlayingAudio !== audio) {
+                currentPlayingAudio.pause();
+            }
+            if (audio.paused) {
+                audio.play();
+                currentPlayingAudio = audio;
+            } else {
+                audio.pause();
+                currentPlayingAudio = null;
+            }
+        });
+    });
+</script>
+</body>
+</html>
