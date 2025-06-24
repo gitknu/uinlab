@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNUnicorn</title>
+    <link rel="icon" href="https://gitknu.github.io/uinlab/icon_knunicorn.svg" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+        :root{--header-height:110px;--card-bg-default:#fde1c5;--card-bg-lab:#dbeafe;--card-bg-business:#d1fae5}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:linear-gradient(135deg,#fff9f8,#fda95d) fixed;font-family:"Montserrat",sans-serif;overflow-x:hidden;line-height:1.05}
+        a{text-decoration:none;color:inherit;transition:all .3s ease}
+        header{position:fixed;top:0;left:0;width:100%;background-color:#fff;z-index:9999;display:flex;justify-content:space-between;align-items:center;padding:15px 20px;font-size:1.2rem;transition:padding .4s ease}
+        .h-icon{height:80px}
+        .h-nav{display:flex;justify-content:center;flex-grow:1}
+        .h-placeholder{width:50px}
+        header a{margin:0 20px}
+        header a:hover{font-weight:700;font-size:1.4rem}
+        .p-title{font-family:"Montserrat",sans-serif;font-weight:800;color:grey;opacity:.75;text-align:center;text-shadow:0 0 2px #fff,0 0 5px #fff;font-size:clamp(1.8rem,5vw,3rem);margin:20px 0;padding:0 20px}
+        .info-banner,.info-banner-2,.info-banner-3,.info-banner-4{width:100%;display:flex;align-items:center;box-sizing:border-box}
+        .info-banner,.info-banner-4{background:linear-gradient(135deg,rgba(60,60,60,.25),rgba(10,10,10,.25));flex-direction:column}
+        .info-banner{justify-content:space-evenly;padding:5vh 5vw;gap:2vw}
+        .info-banner-2{height:var(--header-height)}
+        .info-banner-3{background:linear-gradient(135deg,rgba(200,200,200,.25),rgba(50,50,50,.25));justify-content:center;padding:5vh 5vw;min-height:40vh}
+        .info-banner-4{padding:0}
+        .info-text{text-align:center;max-width:90%}
+        .info-banner-3 .info-text{max-width:90%}
+        .info-banner p,.info-banner-3 p,.info-banner-4 p{font-size:clamp(1.05rem,3vmin,2.05rem);text-shadow:0 1px 3px rgba(255,255,255,.5);color:#333;font-weight:400}
+        .info-video{max-width:90%;width:100%;margin-top:25px;aspect-ratio:16/9}
+        .info-video iframe,.info-video video{width:100%;height:100%;border-radius:15px;border:none;object-fit:cover}
+        .info-banner-4 .info-video{max-width:100%;margin-top:0;aspect-ratio:9/16}
+        .info-banner-4 .info-video video{border-radius:0}
+        .info-banner-4 .info-text{max-width:100%;padding:5vh 5vw}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2vw;width:100%;padding:0 2vw;margin-top:20px;min-height:calc(100vh - 140px)}
+        .rect{background-color:var(--card-bg,var(--card-bg-default));display:flex;flex-direction:column;position:relative;border-radius:10px;overflow:hidden;padding-bottom:50%}
+        .rect.group-lab{--card-bg:var(--card-bg-lab)}
+        .rect.group-business{--card-bg:var(--card-bg-business)}
+        .rect-glow,.rect-info{position:absolute;inset:0;border-radius:10px;z-index:0}
+        .rect-info::before,.rect-glow::before{content:'';position:absolute;z-index:-2;top:50%;left:50%;transform:translate(-50%,-50%);width:99999px;height:99999px;background-image:conic-gradient(transparent,#1976ed,transparent 25%);animation:rotate 4s linear infinite;opacity:0}
+        .rect-info::after{content:'';position:absolute;z-index:-1;inset:5px;background:var(--card-bg,var(--card-bg-default));border-radius:7px}
+        @keyframes rotate{to{transform:translate(-50%,-50%) rotate(1turn)}}
+        .rect:hover .rect-glow::before{opacity:1}
+        .img-cont{width:55%;padding-top:55%;position:relative;margin:10% auto 0;overflow:hidden;transition:opacity .5s ease-in-out}
+        .img-cont img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;object-fit:contain;transition:opacity .5s ease-in-out;border-radius:25px}
+        .rect .text{width:80%;margin:5% auto;color:#333;font-size:clamp(16px,2vw,.9rem);z-index:1}
+        .rect .text b{display:block;text-align:center;font-weight:700;font-size:1.1rem}
+        .rect .text a{display:block;text-align:right;margin-top:32px}
+        .rect .text p{margin:10px 0}
+        .player{position:absolute;bottom:70px;left:10%;width:80%;height:40px;z-index:2;border-radius:8px;overflow:hidden;cursor:pointer}
+        .player canvas{width:100%;height:100%;display:block}
+        .rect .icons{display:flex;justify-content:space-around;position:absolute;bottom:16px;width:100%;z-index:1}
+        .rect .icons a{width:20%;padding-top:20%;position:relative}
+        .rect .icons a img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;object-fit:contain}
+        #up_btn,#down_btn{position:fixed;right:20px;width:70px;height:70px;background-color:#fdc592;border-radius:50%;display:flex;justify-content:center;align-items:center;box-shadow:3px 3px 4px #000;opacity:.7;transition:all .4s ease-in-out;z-index:999}
+        #up_btn:hover,#down_btn:hover{width:65px;height:65px;box-shadow:1px 1px 2px #000}
+        #up_btn:hover .btn_icon,#down_btn:hover .btn_icon{transform:scale(.95)}
+        #up_btn{bottom:100px}
+        #down_btn{bottom:20px}
+        .btn_icon{height:45px;transition:all .4s ease-in-out}
+        .vid-wrap{position:relative;width:100%;height:100%;border-radius:15px;overflow:hidden}
+        .vid-wrap video{width:100%;height:100%;object-fit:cover}
+        .cust-ctrl{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);padding:8px 12px;display:flex;align-items:center;opacity:0;transition:opacity .3s ease;z-index:10}
+        .vid-wrap:hover .cust-ctrl{opacity:1}
+        #vol-slider{cursor:pointer}
+        footer{padding:60px 20px 40px;text-align:center;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.5));color:#fff;width:100%;margin-top:40px;position:relative}
+        footer h3{font-size:1.5rem;margin-bottom:20px;font-weight:700;text-shadow:1px 1px 2px rgba(0,0,0,.7)}
+        footer p{font-size:1rem;margin-bottom:10px;text-shadow:1px 1px 2px rgba(0,0,0,.7); color: #222; font-weight: 500;}
+        footer a{text-shadow:1px 1px 2px rgba(0,0,0,.7); color: #222; font-weight: 500;}
+        .footer-container { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1300px; margin: 0 auto; width: 100%; }
+        .footer-contacts, .footer-form { flex: 1; min-width: 300px; }
+        .footer-contacts { text-align: left; }
+        .footer-form iframe { border-radius: 10px; height: 520px; width: 100%; border: 1px solid #ccc; }
+        .footer-contacts h3 { color: #222; text-shadow: none; }
+        @media (orientation:portrait){
+            .h-icon{height:40px}
+            .h-placeholder{width:40px}
+            .h-nav{justify-content:space-between;margin-left:20px}
+            header a{font-size:0;margin:0}
+            header a:hover{font-size:0}
+            header a::before{content:"";display:block;width:25px;height:25px;background-size:contain;background-repeat:no-repeat}
+            header a:nth-child(1)::before{background-image:url('https://icons.iconarchive.com/icons/pictogrammers/material/512/youtube-tv-icon.png')}
+            header a:nth-child(2)::before{background-image:url('https://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/512/save-icon.png')}
+            header a:nth-child(3)::before{background-image:url('https://icons.iconarchive.com/icons/steve/zondicons/512/Book-Reference-icon.png')}
+            header a:nth-child(4)::before{background-image:url('https://icons.iconarchive.com/icons/steve/zondicons/512/Question-icon.png')}
+            header a:nth-child(5)::before{background-image:url('https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png')}
+            .info-banner-4{padding:5vh 5vw}
+            .info-banner-4 .info-video video{border-radius:15px}
+            .footer-container { flex-direction: column; align-items: center; }
+            .footer-form { order: -1; margin-bottom: 40px; width: 100%; max-width: 500px; }
+            .footer-contacts { text-align: center; }
+        }
+        @media (max-width:800px) and (orientation:portrait){.info-banner-4{flex-direction:column-reverse}}
+        @media (max-width:480px){.grid{grid-template-columns:1fr;min-width:0}}
+        @media (max-width:1367px) and (orientation:portrait){
+            #up_btn,#down_btn{width:75px;height:75px}
+            .btn_icon{height:50px}
+            .player{bottom:105px;height:70px;left:5%;width:85%}
+        }
+        @media (min-width:801px){
+            .info-banner,.info-banner-2,.info-banner-3,.info-banner-4{position:relative;left:50%;transform:translateX(-50%);width:100vw}
+            .info-banner{flex-direction:row;min-height:50vh;padding:4vw}
+            .info-text{max-width:45%}
+            .info-video{max-width:45%;margin-top:0}
+            .info-banner-3{min-height:auto;height:calc(40vh - var(--header-height));padding:4vw}
+            .info-banner-4{height:60vh;padding:4vw;flex-direction:row}
+            .info-banner-4 .info-video{max-width:45%;aspect-ratio:16/9}
+            .info-banner-4 .info-video video{border-radius:15px}
+        }
+        @media (hover:hover) and (min-width:768px){header:has(.h-nav a:hover){padding:17px 20px}}
+    </style>
+</head>
+<body>
+    <div id="header_page"></div>
+    <a href="#header_page" id="up_btn" style="display:flex;justify-content:center;align-items:center"><img class="btn_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-up-drop-circle-outline-icon.png" alt="⬆"></a>
+    <a href="#footer_page" id="down_btn"><img class="btn_icon" src="https://icons.iconarchive.com/icons/pictogrammers/material-arrow/512/arrow-down-drop-circle-outline-icon.png" alt="⬇"></a>
+    <header>
+        <img class="h-icon" src="https://gitknu.github.io/uinlab/icon_knunicorn.svg" alt="UInLab Icon">
+        <nav class="h-nav">
+            <a href="https://whatsapp.com/channel/0029VbBKT3w9xVJauBju183i" target="_blank">Новини</a>
+            <a href="https://drive.google.com/drive/folders/1vzk1xFoZDVh0B6v7g92qKfvVbc44rWKs?usp=sharing" target="_blank">Файли</a>
+            <a href="#">Деталі</a>
+            <a href="#">Інше</a>
+            <a href="#">Контакти</a>
+        </nav>
+        <div class="h-placeholder"></div>
+    </header>
+    <div class="p-title">Віртуальний інноваційний хаб KNUnicorn</div>
+    <div class="info-banner">
+        <div class="info-text"><p>Віртуальний простір, який об'єднує інноваторів, учених, підприємців та інвесторів з різних країн для співпраці над інноваційними проєктами та ідеями, обміну знаннями, пошуку рішень складних проблем, розвитку молодіжного новаторства, імплементації технологічних рішень для розвитку економіки</p></div>
+        <div class="info-video"><iframe src="https://www.youtube.com/embed/r8OipmKFDeM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+    </div>
+    <div class="info-banner-2"></div>
+    <div class="info-banner-3">
+        <div class="info-text"><p><i><b>Місія</b></i> — забезпечення зацікавлених стейкхолдерів ресурсами, необхідними для розробки інноваційних ідей і технологій, підтримка молодіжних стартапів, підприємців, започаткування високотехнологічних компаній, розвиток нетворкінгу та ін.</p></div>
+    </div>
+    <div class="info-banner-4">
+        <div class="info-video">
+            <div class="vid-wrap">
+                <video id="ckkno-video" autoplay muted loop playsinline></video>
+                <div class="cust-ctrl"><input id="vol-slider" type="range" min="0" max="1" step=".05" value="0" oninput="const v=document.getElementById('ckkno-video');v.volume=this.value;v.muted=this.value==0;"></div>
+            </div>
+        </div>
+        <div class="info-text">
+            <p>Маєш інноваційну ідею або продукт? Потрібно розробити або протестувати MVP (мінімально життєздатний продукт)? Звертайся до лабораторій і Центрів колективного користування науковим обладнанням КНУ ім. Тараса Шевченка (ЦККНО)</p><br><br>
+            <p>У ЦККНО студенти, аспіранти, незалежні дослідники та представники бізнесу можуть використати унікальне наукове обладнання для проведення наукових досліджень та науково-технічних розробок</p>
+        </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <footer id="footer_page">
+        <div class="footer-container">
+            <div class="footer-contacts">
+                <h3>Контакти KNUnicorn Hub</h3>
+                <p><a href="mailto:contact@knunicorn.hub">Email: contact@knunicorn.hub</a></p>
+                <p><a href="tel:+380441234567">Телефон: +380 44 123 45 67</a></p>
+                <p><a href="https://maps.app.goo.gl/j2tLYgF25Q2KZSx69" target="_blank">Адреса: м. Київ, вул. Володимирська, 60</a></p>
+            </div>
+            <div class="footer-form">
+                <iframe title="Google Form" src="https://docs.google.com/forms/d/e/1FAIpQLSfwg-s_V_bA_gE_n_T_pRoJ_eCt_S_a_Nd_I_s_S_u_E_s_T_e_D/viewform?embedded=true" width="100%" height="520" frameborder="0" marginheight="0" marginwidth="0">Завантаження…</iframe>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script>
+        const rectanglesData=[{image:"https://lh3.googleusercontent.com/d/1vRPV0LR_eGMVKwb0T_4BHXPOziLgxNH9",text:"<b>Robot&Electronic Laboratory<br>(RELAB)</b><p>Лабораторія електроніки та робототехніки допоможе втілити інженерний задум.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 20)</a></i>",url:"http://fb.com/groups/416391268735797",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"},{image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>ЦККНО<br>ЛФАВЕ<br><br></b><p>Доступ до баз наземних і космічних обсерваторій. Допомога в роботі з результатами спостережень.</p><i><a href=\"https://www.google.com/maps\">Обсерваторна, 3<br>(обсерваторія, к. 17)</a></i>",url:"http://virgoua.org",rightIconUrl:"tel:0445264457",audioSrc:"https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"},{image:"https://lh3.googleusercontent.com/d/13n1BnfjEmFkucMoAvHaTF6hn8tRg8QPv",text:"<b>ЦККНО<br>НДТБМ<br><br></b><p>Люмінесцентний, фотометричний та ІЧ-спектральний аналіз. Дослідження клітинних культур, наночастинок та біомолекул.</p><i><a href=\"https://maps.app.goo.gl/R3Tiu4fJqdsCrK64A\">просп. Глушкова, 4Г<br>(ауд. 227)</a></i>",url:"http://ccouse.knu.ua",rightIconUrl:"tel:0445213235",audioSrc:"https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"},{image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>ЦККНО<br>СТДР<br><br></b><p>Дослідження складу, структури та властивостей гірських порід, руд, продуктів їхньої переробки та багато іншого.</p><i><a href=\"https://www.google.com/maps\">Васильківська, 90А<br>(к. 443)</a></i>",url:"http://geo.ccouse.knu.ua",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"},{image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>Лабораторія товарознавчої експертизи</b><p>Експертиза товарів, а саме - оцінка якості, виявлення фальсифікату, перевірка для імпорту або експорту.</p><i><a href=\"https://maps.app.goo.gl/sfMBwb5ULsj5jWVU8\">Васильківська, 90А<br>(корп. 2, ауд. 210/2)</a></i>",url:"https://example.com/3",rightIconUrl:"tel:0445313329",audioSrc:"https://cdn.freesound.org/previews/332/332650_5842557-lq.mp3"},{group:"lab",image:"https://lh3.googleusercontent.com/d/1HaIJ-qBk5NndQVwA48lZ4Z1ys3nGw4Qh",text:"<b>Дія.Бізнес / Diia.Business<br><br></b><p>Безкоштовні воркшопи, вебінари, лекції, консультації від провідних експертів. Pop-up локація, коворкінг. </p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",url:"http://diia-business-knu.com",rightIconUrl:"tel:0635461848",audioSrc:"https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"},{group:"lab",image:"https://lh3.googleusercontent.com/d/1lBW1KML8N4RJP776NEdcABso0fDgplWV",text:"<b>ЛУНОТЕКА / LUNOTEKA<br><br></b><p>Коворкінг від ЛУН у стінах #ТвійФРЕКС. Навчання, лекції та презентації. Це твій особистий для роботи, нетворкінгу та саморозвитку!</p><i><a href=\"https://maps.app.goo.gl/fpYteGmxhHfNraZx8\">просп. Глушкова, 4Г<br>(каб. 999)</a></i>",url:"https://lunoteka.knu.ua",rightIconUrl:"tel:0636479969",audioSrc:"https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"},{group:"lab",image:"https://lh3.googleusercontent.com/d/1iEjgt11JjjMKxXKPQlPutLWZLXMBrpXC",text:"<b>Бізнес-школа / Business School<br><br></b><p>Річна програма для формування прикладних навичок підприємництва, створення і розвитку стартапів.</p><i><a href=\"https://www.google.com/maps\">Володимирська, 58<br>(бібліотека, ауд. 31А)</a></i>",url:"https://example.com/14",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"},{group:"lab",image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>Школа лідерства / The School for Future Leaders</b><p>Програма для формування лідерських якостей у молоді: розробка і презентація від ідеї до бізнесу, робота у команді, кризовий менеджмент тощо.</p><i><a href=\"https://maps.app.goo.gl/51UaoENykKNYRYXV9\">Васильківська, 90А<br>(корп. 2, ауд. 211/2)</a></i>",url:"http://instagr.am/sfl_econom_knu",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"},{group:"lab",image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>Young Innovation Hackathon / Всеукраїнський Фестиваль Інновацій</b><p>Щорічний фестиваль, де інноватори з усієї України презентують ідеї, спілкуються з інвесторами, формують команди.</p><i><a href=\"https://www.google.com/maps\">НАЗВА ВУЛИЦІ<br>(НОМЕР КАБІНЕТУ)</a></i>",url:"http://linktr.ee/business_school_knu",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"},{group:"business",image:"https://gitknu.github.io/uinlab/transp_science_park.png",text:"<b>Науковий парк / Science Park<br><br></b><br><p>Фаховий аудит, фінансово-економічний супровід проєктів, комунікація з інвесторами та фондами.</p><i><a href=\"https://maps.app.goo.gl/j2tLYgF25Q2KZSx69\">Володимирська, 60<br>(НОМЕР КАБІНЕТУ)</a></i>",url:"http://scp.knu.ua",rightIconUrl:"tel:0442393468",audioSrc:"https://cdn.freesound.org/previews/361/361217_6617667-lq.mp3"},{group:"business",image:"https://lh3.googleusercontent.com/d/10NZlykBQ6be5XxgGccfhtiOyxLnV3zM5",text:"<b>Науково-дослідна частина (НДЧ)<br><br></b><p>Підкажуть актуальні теми досліджень, наукові та грантові конкурси, конференції та інші наукові заходи, події.</p><i><a href=\"https://maps.app.goo.gl/rTunRwwEwteYbuHX7\">Скоропадського, 14А<br>(НОМЕР КАБІНЕТУ)</a></i>",url:"http://science.knu.ua",rightIconUrl:"tel:044000000",audioSrc:"https://cdn.freesound.org/previews/728/728142_11861866-lq.mp3"}];
+        const grid=document.getElementById("grid"),header=document.querySelector("header");
+        const createIcon=(url,src)=>{const a=document.createElement("a");a.href=url;const img=document.createElement("img");img.src=src;a.appendChild(img);return a};
+        const createRectangle=d=>{const wrap=document.createElement("a");wrap.href=d.url;wrap.target="_blank";const rect=document.createElement("div");rect.className=`rect ${d.group?`group-${d.group}`:""}`;const glow=document.createElement("div");glow.className="rect-glow";const info=document.createElement("div");info.className="rect-info";const imgCont=document.createElement("div");imgCont.className="img-cont";const img=document.createElement("img");img.src=d.image;img.alt=`Image for ${d.text.match(/<b>(.*?)<\/b>/)[1]}`;imgCont.appendChild(img);const txt=document.createElement("div");txt.className="text";txt.innerHTML=d.text;const player=document.createElement("div");player.className="player";const canvas=document.createElement("canvas");canvas.className="visualizer";const audio=document.createElement("audio");audio.src=d.audioSrc;audio.crossOrigin="anonymous";player.append(canvas,audio);const icons=document.createElement("div");icons.className="icons";const toggleQr=(cont,origSrc,qrContent)=>{const currImg=cont.querySelector("img");const isOrig=!currImg.src.startsWith("data:image");cont.style.opacity=0;setTimeout(()=>{if(isOrig){QRCode.toDataURL(qrContent,{width:150,height:150},(err,url)=>{if(err){console.error(err);return}currImg.src=url;cont.style.opacity=1})}else{currImg.src=origSrc;cont.style.opacity=1}},500)};const lIcon=createIcon("javascript:void(0)","https://icons.iconarchive.com/icons/icons8/windows-8/512/Ecommerce-Qr-Code-icon.png");lIcon.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();toggleQr(imgCont,d.image,d.url)});const rIcon=createIcon("javascript:void(0)","https://icons.iconarchive.com/icons/icons8/windows-8/512/Mobile-Phone-icon.png");rIcon.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();if(window.innerWidth<=window.innerHeight){window.location.href=d.rightIconUrl}else{toggleQr(imgCont,d.image,d.rightIconUrl)}});icons.append(lIcon,rIcon);rect.append(glow,info,imgCont,txt,player,icons);wrap.appendChild(rect);return wrap};
+        const rectangles=rectanglesData.map(d=>{const r=createRectangle(d);grid.appendChild(r);return r});
+        const adjustHeight=()=>{const rects=rectangles.map(r=>r.querySelector(".rect"));rects.forEach(r=>r.style.height="auto");requestAnimationFrame(()=>{const maxH=Math.max(...rects.map(r=>r.offsetHeight));rects.forEach(r=>r.style.height=maxH+"px")})};
+        const adjustLayout=()=>{const h=header.offsetHeight;document.body.style.paddingTop=`${h}px`;document.documentElement.style.setProperty("--header-height",`${h}px`)};
+        const updateVidSrc=()=>{const v=document.getElementById("ckkno-video");if(!v)return;const isP=window.innerHeight>window.innerWidth;const newSrc=isP?"https://gitknu.github.io/uinlab/ckkno_vert.mp4":"https://gitknu.github.io/uinlab/ckkno_horiz.mp4";if(!v.currentSrc||!v.currentSrc.endsWith(newSrc.split("/").pop())){v.src=newSrc;v.load();v.play().catch(e=>console.log("Autoplay prevented:",e))}};
+        const runAdjustments=()=>{adjustLayout();adjustHeight();updateVidSrc()};
+        window.onload=runAdjustments;window.onresize=runAdjustments;
+        document.getElementById("up_btn").addEventListener("click",e=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})});
+        document.getElementById("down_btn").addEventListener("click",e=>{e.preventDefault();window.scrollTo({top:document.documentElement.scrollHeight,behavior:"smooth"})});
+        window.AudioContext=window.AudioContext||window.webkitAudioContext;let currentAudio=null;
+        function initCanvas(c){c.width=c.clientWidth;c.height=c.clientHeight;const ctx=c.getContext("2d"),w=c.width,h=c.height-2,meterW=5,gap=2,meterNum=Math.floor(w/(meterW+gap));const grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(1,"#000");grad.addColorStop(0,"#0072ff");ctx.clearRect(0,0,w,c.height);for(let i=0;i<meterNum;i++){ctx.fillStyle=grad;ctx.fillRect(i*(meterW+gap),h,meterW,2)}}
+        document.querySelectorAll(".player").forEach(p=>{const c=p.querySelector("canvas"),a=p.querySelector("audio");let ctx,analyser,animId,capY=[],init=!1;initCanvas(c);function render(){if(a.paused||a.ended){cancelAnimationFrame(animId);initCanvas(c);if(a.ended)currentAudio=null;return}if(c.width!==c.clientWidth||c.height!==c.clientHeight){c.width=c.clientWidth;c.height=c.clientHeight;capY=[]}const canvasCtx=c.getContext("2d"),w=c.width,h=c.height,meterW=5,gap=2,capH=2,meterNum=Math.floor(w/(meterW+gap)),freqData=new Uint8Array(analyser.frequencyBinCount);analyser.getByteFrequencyData(freqData);canvasCtx.clearRect(0,0,w,h);const grad=canvasCtx.createLinearGradient(0,0,0,h);grad.addColorStop(1,"#000");grad.addColorStop(0,"#0072ff");const capGrad=canvasCtx.createLinearGradient(0,0,0,h);capGrad.addColorStop(1,"#fff");capGrad.addColorStop(0,"#eee");for(let i=0;i<meterNum;i++){
+            const logMax = Math.log10(freqData.length);
+            const logIndex = Math.pow(10, (i / meterNum) * logMax);
+            const val = freqData[Math.floor(logIndex)] || 0;
+            if(capY.length<meterNum)capY.push(val);canvasCtx.fillStyle=capGrad;if(val<capY[i]){canvasCtx.fillRect(i*(meterW+gap),h- --capY[i],meterW,capH)}else{canvasCtx.fillRect(i*(meterW+gap),h-val,meterW,capH);capY[i]=val}canvasCtx.fillStyle=grad;const barH=val*(h/255);canvasCtx.fillRect(i*(meterW+gap),h-barH,meterW,barH)}animId=requestAnimationFrame(render)}function setup(){if(init)return;ctx=new AudioContext;analyser=ctx.createAnalyser();const src=ctx.createMediaElementSource(a);src.connect(analyser);analyser.connect(ctx.destination);analyser.fftSize=1024;init=!0}a.onplay=()=>{setup();render()};p.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();if(currentAudio&&currentAudio!==a){currentAudio.pause()}if(a.paused){a.play();currentAudio=a}else{a.pause();currentAudio=null}})});
+    </script>
+</body>
+</html>
